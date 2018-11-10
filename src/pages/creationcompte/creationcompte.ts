@@ -66,8 +66,8 @@ export class CreationcomptePage {
   //When we click on inscription button 
   inscription() {
 
-    let possede_maj;
-    let possede_min;
+    let possede_maj = false;
+    let possede_min = false;
     let possede_nombre_password: boolean = false;
 
     if (/[A-Z]+/.test(this.password)) {

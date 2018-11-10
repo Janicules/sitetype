@@ -28,7 +28,6 @@ export class ApiServiceProvider {
         .subscribe(data => {
           this.data = data;
           resolve(this.data);
-          console.log(this.data);
         }, error => {
           console.log("erreur API : " + error);
         });

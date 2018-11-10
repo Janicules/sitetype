@@ -45,7 +45,7 @@
       </ion-list>
       <div id="mdpoublie" style="cursor: pointer;" (click)="redirectionMdp()">Mot de passe oublié?</div>
       <div class="checkbox">
-        <ion-checkbox color="grey" checked="true"></ion-checkbox>
+        <ion-checkbox color="grey" [(ngModel)]="remember" checked="true"></ion-checkbox>
         <p>Se souvenir de moi</p>
       </div>
     </div>

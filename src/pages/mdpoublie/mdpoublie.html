@@ -37,14 +37,14 @@
     <div class="enregistrement">
       <ion-list>
         <ion-item>
-          <ion-input type="password" placeholder="Nouveau mot de passe" style="color: black;"></ion-input>
+          <ion-input [(ngModel)]="password" type="password" placeholder="Nouveau mot de passe" style="color: black;"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="password" placeholder="Confirmer votre nouveau mot de passe" style="color: black;"></ion-input>
+          <ion-input [(ngModel)]="passwordConfirm" type="password" placeholder="Confirmer votre nouveau mot de passe" style="color: black;"></ion-input>
         </ion-item>
       </ion-list>
     </div>
-    <button ion-button style="background-color: #737373; margin-left: 30%; width: 40%; margin-top: 2%; height:6%; font-size: 100%">Connexion</button>
+    <button ion-button (click)="changePassword()" style="background-color: #737373; margin-left: 30%; width: 40%; margin-top: 2%; height:6%; font-size: 100%">Modifier</button>
     <div class="redirection">Vous n'avez pas de compte? Vous pouvez suivre ce <a style="cursor: pointer;" (click)="redirectionInscription()">lien</a>
       pour créer un compte.</div>
     <footer>

@@ -29,6 +29,7 @@ export class ComptePage {
   //Variables for the connection :
   email: string = "";
   password: string = "";
+  remember: boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
     private apiService: ApiServiceProvider, private appService: AppServiceProvider) {
@@ -47,32 +48,39 @@ export class ComptePage {
 
   //Function when the user click on the connection button
   connexion() {
-    if(this.email.length < 6){
+    if (this.email.length < 6) {
       this.presentToast("Merci de saisir un email valide");
       return;
     }
-    if(this.password.length < 6){
+    if (this.password.length < 6) {
       this.presentToast("Merci de rentrer un mot de passe valide");
       return;
     }
 
-    this.apiService.get("connexion.php", "?email="+this.email+"&password="+this.password)
-        .then(result => {
-          const data: any = result;
+    this.apiService.get("connexion.php", "?email=" + this.email + "&password=" + this.password)
+      .then(result => {
+        const data: any = result;
 
-          if(data._body == "true"){
-            this.presentToast("Vous êtes maintenant connecté");
-            this.appService.email = this.email;
-            this.appService.connected = true;
+        if (data._body == "true") {
+          this.presentToast("Vous êtes maintenant connecté");
+          this.appService.email = this.email;
+          this.appService.connected = true;
 
-            this.navCtrl.setRoot(HomePage);
-          }else{
-            this.presentToast("L'email ou le mot de passe est incorrect");
-          }
-        })
-        .catch(error => {
-          this.presentToast("Erreur réseau");
-        })
+
+          if (this.remember)
+            window.localStorage.setItem('email', this.email);
+          else
+            if(window.localStorage.getItem('email'))
+              window.localStorage.removeItem('email');
+
+          this.navCtrl.setRoot(HomePage);
+        } else {
+          this.presentToast("L'email ou le mot de passe est incorrect");
+        }
+      })
+      .catch(error => {
+        this.presentToast("Erreur réseau");
+      })
   }
 
   //Functions to redirect the user to another pages
