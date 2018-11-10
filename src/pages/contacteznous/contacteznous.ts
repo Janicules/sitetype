@@ -5,6 +5,7 @@ import { GateauPage } from '../gateau/gateau';
 import { ComptePage } from '../compte/compte';
 import { HomePage } from '../home/home';
 import { PanierPage } from '../panier/panier';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 /**
  * Generated class for the ContacteznousPage page.
@@ -27,10 +28,11 @@ export class ContacteznousPage {
   firstName: string = "";
   email: string = "";
   phone: string = "";
-  select: string = "";
+  subject: string = "";
   message: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
+    private emailComposer: EmailComposer) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
   }
 
@@ -89,35 +91,44 @@ export class ContacteznousPage {
       this.presentToast("Le téléphone ne doit contenir que des chiffres");
       return;
     }
-    if (this.select.length < 2) {
+    if (this.subject.length < 2) {
       this.presentToast("Veuillez sélectionner un motif pour votre message");
       return;
     }
-    if (this.message.length < 5) {
+    if (this.message.length < 5) {
       this.presentToast("Veuillez saisir un message");
       return;
     }
 
-
-  };
+    let email = {
+      to: 'mathias.arredondo@viacesi.fr',
+      cc: [],
+      bcc: [],
+      attachments: [],
+      subject: this.subject,
+      body: this.message + "message reçu par " + this.firstName + " " + this.lastName + " --> " + this.email,
+      isHtml: false
+    }
+    this.emailComposer.open(email);
+  }
 
   //Function to redirect the user to other pages :
   redirectionMonCompte() {
-    this.navCtrl.setRoot(ComptePage, {choix: this.choix});
+    this.navCtrl.setRoot(ComptePage, { choix: this.choix });
   }
   redirectionContacteznous() {
-    this.navCtrl.setRoot(ContacteznousPage, {choix: this.choix});
+    this.navCtrl.setRoot(ContacteznousPage, { choix: this.choix });
   }
   redirectionPlats() {
-    this.navCtrl.setRoot(PlatPage, {choix: this.choix});
+    this.navCtrl.setRoot(PlatPage, { choix: this.choix });
   }
   redirectionGateau() {
-    this.navCtrl.setRoot(GateauPage, {choix: this.choix});
+    this.navCtrl.setRoot(GateauPage, { choix: this.choix });
   }
   redirectionHome(selected: string) {
     this.navCtrl.setRoot(HomePage, { choix: selected });
   }
   redirectionPanier() {
-    this.navCtrl.setRoot(PanierPage, {choix: this.choix});
+    this.navCtrl.setRoot(PanierPage, { choix: this.choix });
   }
 }

@@ -17,7 +17,7 @@ import { CreationcomptePage } from '../pages/creationcompte/creationcompte';
 import { AppServiceProvider } from '../providers/app-service/app-service';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 import { HttpModule } from '@angular/http';
-
+import { EmailComposer } from '@ionic-native/email-composer';
 
 @NgModule({
   declarations: [
@@ -54,6 +54,7 @@ import { HttpModule } from '@angular/http';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AppServiceProvider,
     ApiServiceProvider,
+    EmailComposer,
   ]
 })
 export class AppModule { }
