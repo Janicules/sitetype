@@ -1,0 +1,313 @@
+body{
+    overflow-y: scroll;
+    margin: 0px;
+  }
+
+/************************************* HEADER *******************************************/
+header
+  {
+    font-size: 20px;
+    background-image: url("../../assets/imgs/header.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: rgb(83,33,13);
+    width: 100%;
+    border-bottom: 1px rgb(83,33,13) solid;
+  }
+
+  #logo
+  {
+    width: 100%;
+    height: 100%;
+  }
+  .homelogo
+  {
+    padding-top: 0.3%;
+    padding-bottom: 0.3%;
+    margin-left: 2%;
+    margin-right: 2%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px rgb(83,33,13) solid;
+    justify-content: space-between;
+    font-family: 'fontawesome';
+  }
+  .menu
+  {
+    display: flex;
+    background-color: transparent;
+    list-style-type: none;
+  }
+  .deroule
+  {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+  }
+  .commandez
+  {
+    margin-bottom: 0px;
+    font-family: 'GothamBold';
+    font-size: 18px;
+    padding-top: 20px;
+    float: left;
+    position: relative;
+    color: rgb(83,33,13);
+  }
+  .submenu
+  {
+    list-style-type: none;
+    display: none;
+  }
+  .compte
+  {
+    margin-bottom: 0px;
+    font-family: 'GothamBold';
+    font-size: 18px;
+    padding-top: 20px;
+    margin-left: 50px
+  }
+  .compte :hover
+  {
+    border-bottom: 2px solid rgb(83,33,13);
+    padding-bottom: 7%;
+    font-family: 'GothamBold';
+
+  }
+  .contact
+  {
+    margin-bottom: 0px;
+    font-family: 'GothamBold';
+    font-size: 18px;
+    padding-top: 20px;
+    margin-left: 50px;
+  }
+  .contact :hover
+  {
+    padding-bottom: 7%;
+    border-bottom: 2px rgb(83,33,13) solid;
+    font-family: 'GothamBold';
+  }
+
+a{
+  text-decoration: none;
+  color: rgb(83,33,13);
+}
+
+  .panier
+  {
+    height: 4%;
+    width: 4%;
+    border-radius: 50%;
+    border: 2px solid rgb(83,33,13);
+    padding: 0.4%;
+    margin-top: 2%;
+    margin-right: 1.3%;
+  }
+  .icone{
+    margin-right: 5%;
+  }
+  .livraison
+  {
+    margin-bottom: 15px;
+    font-family: 'GothamBold';
+    font-size: 15px;
+    padding-left: 0;
+    padding-top: 8px;
+    margin-left: 37%;
+    width: 11%;
+    display: flex;
+    align-items: center;
+  }
+  .livraison:hover {
+    border-bottom: 2px rgb(83,33,13) solid;
+    border-top: 2px rgb(83,33,13) solid;
+  }
+  .emporter
+  {
+    margin-bottom: 15px;
+    font-family: 'GothamBold';
+    font-size: 15px;
+    margin-left: 15px;
+    padding-top: 8px;
+    padding-left: 0;
+    width: 10%;
+    display: flex;
+    align-items: center;
+  }
+  .emporter:hover {
+    border-bottom: 2px rgb(83,33,13) solid;
+    border-top: 2px rgb(83,33,13) solid;
+  }
+  .place
+  {
+    margin-bottom: 15px;
+    font-family: 'GothamBold';
+    font-size: 15px;
+    margin-left: 15px;
+    padding-top: 8px;
+    padding-left: 0;
+    width: 9%;
+    display: flex;
+    align-items: center;
+  }
+  .place:hover {
+    border-bottom: 2px rgb(83,33,13) solid;
+    border-top: 2px rgb(83,33,13) solid;
+  }
+
+  .choixSelected {
+    border-bottom: 2px rgb(83,33,13) solid;
+    border-top: 2px rgb(83,33,13) solid;
+    padding-bottom: 3px;
+  }
+
+  .menu::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  .commandez:hover .submenu
+  {
+    display: inline-block;
+    position: absolute;
+    top: 47px;
+    left: 0px;
+    width: 100%;
+    background-color: white;
+    padding: 0;
+    z-index: 1000;
+  }
+  .submenu li a {
+    color: #000;
+    font-family: 'GothamBold';
+  }
+  .commandez:hover #souligner {
+    border-bottom: 2px solid rgb(83,33,13);
+    padding-bottom: 7%;
+  }
+  .sousmenu{
+    padding-left: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: black;
+    font-family: 'GothamBold';
+  }
+/************************************* /HEADER ******************************************/
+
+
+/************************************* FOOTER *******************************************/
+  footer
+  {
+    color: white;
+    opacity: 1;
+    width: 100%;
+    bottom: 0;
+  }  
+  .baspage
+  {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 15px;
+    background-image: url("../../assets/imgs/footer.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .width-footer {
+      width: 50%;
+      margin-left: 25%;
+      font-family: 'GothamBlack';
+  }
+  .info
+  {
+    padding-bottom: 2%;
+  }
+
+  .adresse{
+    display: flex;
+    line-height: 1;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    font-family: 'GothamBook';
+  }
+  .item-md{
+    background: inherit;
+    color: white;
+    border-bottom: white;
+    width: 100%;
+    text-align: center;
+    padding-left: 0px;
+  }
+  .badge-md{
+    background-color: transparent;
+    font-size: 1vw;
+  }
+  .littleUnderlineFooter {
+    border: solid 1px rgb(83,33,13);
+    width: 20px;
+    margin-bottom: 10px;
+  }
+
+  .liste .label-md {
+        display: flex;
+        justify-content: space-between;
+        font-family: 'GothamBook';
+    }
+
+    .liste ion-item {
+        min-height: 22px;
+        height: 22px;
+    }
+    .baspage2{
+        width: 100%;
+        height: 100px;
+        text-align: center;
+        background-color: rgb(209,124,73);
+    }
+    .reseauxsociaux{
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        margin: 0px auto; 
+    }
+    .rs{
+        margin-left: 10%;
+        height: 100%;
+    }
+    .crédits{
+      padding-top: 0.5vw;
+      margin-top: 0;
+      font-size: 1.3vw;
+      font-family: 'GothamBold';
+    }
+    .ion-badge{
+      background: transparent;
+    }
+    .small{
+      font-family: 'GothamBook';
+    }
+/************************************* /FOOTER *****************************************/
+
+/************************************* INPUT UNDERLINE *********************************/
+
+.list-md .item-input.item-input-has-focus:last-child, .list-md .item-input.input-has-focus:last-child {
+  border-bottom: inherit !important;
+  box-shadow: inherit !important;
+}
+
+.item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.item-input-has-focus .item-inner {
+  border-bottom: 1px solid rgb(209,124,73) !important;
+  box-shadow: inset 0 -1px 0 0 rgb(209,124,73) !important;
+}
+
+/************************************* /INPUT UNDERLINE ********************************/
