@@ -36,29 +36,22 @@
     </div>
     <div class="contenuPlats">
       <div class="listeplats">
-        <div class="plat">
-          <div class="illustration"><img src="assets/imgs/plat1.png" /></div>
-          <div class="titreplat">Plat X</div>
-          <div class="ingredients">Ingrédients Y</div>
-          <div class="prix">10€50</div>
-        </div>
-        <div class="plat">
-          <div class="illustration"><img src="assets/imgs/plat2.png" /></div>
-          <div class="titreplat">Plat X</div>
-          <div class="ingredients">Ingrédients Y</div>
-          <div class="prix">10€50</div>
-        </div>
-        <div class="plat">
-          <div class="illustration"><img src="assets/imgs/plat3.png" /></div>
-          <div class="titreplat">Plat X</div>
-          <div class="ingredients">Ingrédients Y</div>
-          <div class="prix">10€50</div>
-        </div>
-        <div class="plat">
-          <div class="illustration"><img src="assets/imgs/plat4.png" /></div>
-          <div class="titreplat">Plat X</div>
-          <div class="ingredients">Ingrédients Y</div>
-          <div class="prix">10€50</div>
+        <div *ngFor="let plat of plats" class="plat">
+          <div class="illustration"><img [src]="plat.image" /></div>
+          <div class="titreplat">{{ plat.title }}</div>
+          <div class="ingredients">{{ plat.ingredients }}</div>
+          <div class="prix">{{ plat.price }}</div>
+          <span class="tooltip">
+            <div class="titretool">{{ plat.titleTool }}</div>
+            <div class="ingredienttool">{{ plat.ingredientTool }}</div>
+            <button ion-button (click)="addCart(plat.title, plat.price, plat.image)" class="toolButton">Sélectionner</button>
+            <div class="ico">
+              <img src='assets/imgs/fb.jpg' />
+              <img src='assets/imgs/twitter.jpg' />
+              <img src='assets/imgs/insta.jpg' />
+              <img src='assets/imgs/gplus.jpg' />
+            </div>
+          </span>
         </div>
       </div>
     </div>

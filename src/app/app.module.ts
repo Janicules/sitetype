@@ -18,6 +18,8 @@ import { AppServiceProvider } from '../providers/app-service/app-service';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 import { HttpModule } from '@angular/http';
 import { EmailComposer } from '@ionic-native/email-composer';
+import { CommandeProvider } from '../providers/commande/commande';
+import { ToastProvider } from '../providers/toast/toast';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { EmailComposer } from '@ionic-native/email-composer';
     AppServiceProvider,
     ApiServiceProvider,
     EmailComposer,
+    CommandeProvider,
+    ToastProvider,
   ]
 })
 export class AppModule { }

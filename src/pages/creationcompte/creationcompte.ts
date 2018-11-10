@@ -1,7 +1,8 @@
+import { ToastProvider } from './../../providers/toast/toast';
 import { AppServiceProvider } from './../../providers/app-service/app-service';
 import { ApiServiceProvider } from './../../providers/api-service/api-service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PanierPage } from '../panier/panier';
 import { ComptePage } from '../compte/compte';
 import { ContacteznousPage } from '../contacteznous/contacteznous';
@@ -37,7 +38,7 @@ export class CreationcomptePage {
   zipCode: string = "";
   phone: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastService: ToastProvider,
     private apiService: ApiServiceProvider, private appService: AppServiceProvider) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
   }
@@ -51,16 +52,6 @@ export class CreationcomptePage {
   //Check if the string contains number :
   hasNumber(myString) {
     return /\d/.test(myString);
-  }
-
-  //Display a popup when there is a problem :
-  presentToast(message) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-    });
-
-    toast.present();
   }
 
   //When we click on inscription button 
@@ -89,79 +80,79 @@ export class CreationcomptePage {
     }
 
     if (this.email.length < 6) {
-      this.presentToast("Il faut au minimum 6 caractères dans l'adresse mail");
+      this.toastService.presentToast("Il faut au minimum 6 caractères dans l'adresse mail");
       return;
     }
     if (this.isEmailValid(this.email) == false) {
-      this.presentToast("Adresse email invalide");
+      this.toastService.presentToast("Adresse email invalide");
       return;
     }
     if (this.username.length < 1) {
-      this.presentToast("Il faut au minimum 1 caractères dans le nom d'utilisateur");
+      this.toastService.presentToast("Il faut au minimum 1 caractères dans le nom d'utilisateur");
       return;
     }
     if (this.password.length < 8) {
-      this.presentToast("Votre mot de passe doit contenir 8 caractères");
+      this.toastService.presentToast("Votre mot de passe doit contenir 8 caractères");
       return;
     }
     if (possede_maj == false) {
-      this.presentToast("Il faut au moins une majuscule dans le mot de passe");
+      this.toastService.presentToast("Il faut au moins une majuscule dans le mot de passe");
       return;
     }
     if (possede_min == false) {
-      this.presentToast("Il faut au moins une minuscule dans le mot de passe");
+      this.toastService.presentToast("Il faut au moins une minuscule dans le mot de passe");
       return;
     }
     if (possede_nombre_password == false) {
-      this.presentToast("Il faut au moins un nombre dans le mot de passe");
+      this.toastService.presentToast("Il faut au moins un nombre dans le mot de passe");
       return;
     }
     if (this.password != this.passwordConfirm) {
-      this.presentToast("Vos deux mots de passe doivent correspondre");
+      this.toastService.presentToast("Vos deux mots de passe doivent correspondre");
       return;
     }
     if (this.lastName.length < 2) {
-      this.presentToast("Il faut au minimum 2 caractères dans le nom");
+      this.toastService.presentToast("Il faut au minimum 2 caractères dans le nom");
       return;
     }
     if (this.hasNumber(this.lastName) == true) {
-      this.presentToast("Votre nom ne peut pas contenir de chiffre");
+      this.toastService.presentToast("Votre nom ne peut pas contenir de chiffre");
       return;
     }
     if (this.firstName.length < 2) {
-      this.presentToast("Il faut au minimum 2 caractères dans le prénom");
+      this.toastService.presentToast("Il faut au minimum 2 caractères dans le prénom");
       return;
     }
     if (this.hasNumber(this.firstName) == true) {
-      this.presentToast("Votre prénom ne peut pas contenir de chiffre");
+      this.toastService.presentToast("Votre prénom ne peut pas contenir de chiffre");
       return;
     }
     if (this.address.length < 6) {
-      this.presentToast("Il faut au minimum 10 caractères dans l'adresse");
+      this.toastService.presentToast("Il faut au minimum 10 caractères dans l'adresse");
       return;
     }
     if (this.city.length < 2) {
-      this.presentToast("Il faut au minimum 2 caractères dans la ville");
+      this.toastService.presentToast("Il faut au minimum 2 caractères dans la ville");
       return;
     }
     if (this.hasNumber(this.city) == true) {
-      this.presentToast("La ville ne peut pas contenir de chiffre");
+      this.toastService.presentToast("La ville ne peut pas contenir de chiffre");
       return;
     }
     if (this.zipCode.length != 5) {
-      this.presentToast("Il faut 5 chiffres dans le code postal");
+      this.toastService.presentToast("Il faut 5 chiffres dans le code postal");
       return;
     }
     if (isNaN(parseInt(this.zipCode))) {
-      this.presentToast("Le code postal ne doit contenir que des chiffres");
+      this.toastService.presentToast("Le code postal ne doit contenir que des chiffres");
       return;
     }
     if (this.phone.length != 10) {
-      this.presentToast("Il faut 10 chiffres pour le numéro de téléphone");
+      this.toastService.presentToast("Il faut 10 chiffres pour le numéro de téléphone");
       return;
     }
     if (isNaN(parseInt(this.phone))) {
-      this.presentToast("Le téléphone ne doit contenir que des chiffres");
+      this.toastService.presentToast("Le téléphone ne doit contenir que des chiffres");
       return;
     }
 
@@ -173,19 +164,19 @@ export class CreationcomptePage {
         response => {
           data = response;
           if (data._body == "email") {
-            this.presentToast("Cette adresse email est déjà utilisée");
+            this.toastService.presentToast("Cette adresse email est déjà utilisée");
             return;
           }
           else if (data._body == "username") {
-            this.presentToast("Ce nom d'utilisateur est déjà utilisé");
+            this.toastService.presentToast("Ce nom d'utilisateur est déjà utilisé");
             return;
           }
           else {
             if (data._body != "saved") {
-              this.presentToast("Erreur - Merci de réessayer plus tard");
+              this.toastService.presentToast("Erreur - Merci de réessayer plus tard");
               return;
             } else {
-              this.presentToast("Utilisateur enregistré");
+              this.toastService.presentToast("Utilisateur enregistré");
               this.appService.email = this.email;
               this.appService.connected = true;
 

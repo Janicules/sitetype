@@ -1,5 +1,6 @@
+import { ToastProvider } from './../../providers/toast/toast';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PlatPage } from '../plat/plat';
 import { GateauPage } from '../gateau/gateau';
 import { ComptePage } from '../compte/compte';
@@ -31,7 +32,7 @@ export class ContacteznousPage {
   subject: string = "";
   message: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastService: ToastProvider,
     private emailComposer: EmailComposer) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
   }
@@ -47,56 +48,46 @@ export class ContacteznousPage {
     return /\d/.test(myString);
   }
 
-  //Display a popup when there is a problem :
-  presentToast(message) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-    });
-
-    toast.present();
-  }
-
   //Function to send a mail : 
   sendMessage() {
     if (this.lastName.length < 2) {
-      this.presentToast("Il faut au minimum 2 caractères dans le nom");
+      this.toastService.presentToast("Il faut au minimum 2 caractères dans le nom");
       return;
     }
     if (this.hasNumber(this.lastName) == true) {
-      this.presentToast("Votre nom ne peut pas contenir de chiffre");
+      this.toastService.presentToast("Votre nom ne peut pas contenir de chiffre");
       return;
     }
     if (this.firstName.length < 2) {
-      this.presentToast("Il faut au minimum 2 caractères dans le prénom");
+      this.toastService.presentToast("Il faut au minimum 2 caractères dans le prénom");
       return;
     }
     if (this.hasNumber(this.firstName) == true) {
-      this.presentToast("Votre prénom ne peut pas contenir de chiffre");
+      this.toastService.presentToast("Votre prénom ne peut pas contenir de chiffre");
       return;
     }
     if (this.email.length < 6) {
-      this.presentToast("Il faut au minimum 6 caractères dans l'adresse mail");
+      this.toastService.presentToast("Il faut au minimum 6 caractères dans l'adresse mail");
       return;
     }
     if (this.isEmailValid(this.email) == false) {
-      this.presentToast("Adresse email invalide");
+      this.toastService.presentToast("Adresse email invalide");
       return;
     }
     if (this.phone.length != 10) {
-      this.presentToast("Il faut 10 chiffres pour le numéro de téléphone");
+      this.toastService.presentToast("Il faut 10 chiffres pour le numéro de téléphone");
       return;
     }
     if (isNaN(parseInt(this.phone))) {
-      this.presentToast("Le téléphone ne doit contenir que des chiffres");
+      this.toastService.presentToast("Le téléphone ne doit contenir que des chiffres");
       return;
     }
     if (this.subject.length < 2) {
-      this.presentToast("Veuillez sélectionner un motif pour votre message");
+      this.toastService.presentToast("Veuillez sélectionner un motif pour votre message");
       return;
     }
     if (this.message.length < 5) {
-      this.presentToast("Veuillez saisir un message");
+      this.toastService.presentToast("Veuillez saisir un message");
       return;
     }
 

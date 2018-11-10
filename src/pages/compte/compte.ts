@@ -1,6 +1,7 @@
+import { ToastProvider } from './../../providers/toast/toast';
 import { AppServiceProvider } from './../../providers/app-service/app-service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ContacteznousPage } from '../contacteznous/contacteznous';
 import { PlatPage } from '../plat/plat';
 import { GateauPage } from '../gateau/gateau';
@@ -31,29 +32,19 @@ export class ComptePage {
   password: string = "";
   remember: boolean = true;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastService: ToastProvider,
     private apiService: ApiServiceProvider, private appService: AppServiceProvider) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
-  }
-
-  //Function to display a little text 
-  presentToast(message) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-    });
-
-    toast.present();
   }
 
   //Function when the user click on the connection button
   connexion() {
     if (this.email.length < 6) {
-      this.presentToast("Merci de saisir un email valide");
+      this.toastService.presentToast("Merci de saisir un email valide");
       return;
     }
     if (this.password.length < 6) {
-      this.presentToast("Merci de rentrer un mot de passe valide");
+      this.toastService.presentToast("Merci de rentrer un mot de passe valide");
       return;
     }
 
@@ -62,7 +53,7 @@ export class ComptePage {
         const data: any = result;
 
         if (data._body == "true") {
-          this.presentToast("Vous êtes maintenant connecté");
+          this.toastService.presentToast("Vous êtes maintenant connecté");
           this.appService.email = this.email;
           this.appService.connected = true;
 
@@ -75,11 +66,11 @@ export class ComptePage {
 
           this.navCtrl.setRoot(HomePage);
         } else {
-          this.presentToast("L'email ou le mot de passe est incorrect");
+          this.toastService.presentToast("L'email ou le mot de passe est incorrect");
         }
       })
       .catch(error => {
-        this.presentToast("Erreur réseau");
+        this.toastService.presentToast("Erreur réseau");
       })
   }
 

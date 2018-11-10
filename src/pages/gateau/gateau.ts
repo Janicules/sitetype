@@ -1,3 +1,5 @@
+import { ToastProvider } from './../../providers/toast/toast';
+import { CommandeProvider } from './../../providers/commande/commande';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ComptePage } from "../compte/compte";
@@ -19,35 +21,216 @@ import { PanierPage } from '../panier/panier';
 })
 export class GateauPage {
 
+  //Variable to set the choice of the user (Livraison / A emporter / Sur place)
   choix: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  //Variables for all cakes :
+  gateaux: any = [
+    {
+      image: 'assets/imgs/gateau1.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau2.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau3.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau4.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau5.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau6.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau7.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau8.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau9.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau10.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau11.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau12.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau13.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau14.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau15.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau16.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau17.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau18.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau19.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau20.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau21.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+    {
+      image: 'assets/imgs/gateau22.png',
+      title: 'Gateau X',
+      ingredients: 'Ingrédient Y',
+      price: '2€50',
+      titleTool: 'Plat',
+      ingredientTool: 'Ingrédients',
+    },
+  ]
+  constructor(public navCtrl: NavController, public navParams: NavParams, private commandeService: CommandeProvider,
+    private toastService: ToastProvider) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
   }
 
-  ionViewDidLoad() {
+  //Function when we click on the select button 
+  addCart(name, price, image) {
+    this.toastService.presentToast("Le produit a été ajouté à votre panier");
+    this.commandeService.commandArray.push({ name: name, price: price, image: image });
   }
 
+  //Functions to redirect the user to other pages
   redirectionMonCompte() {
-    this.navCtrl.setRoot(ComptePage, {choix: this.choix});
+    this.navCtrl.setRoot(ComptePage, { choix: this.choix });
   }
   redirectionContacteznous() {
-    this.navCtrl.setRoot(ContacteznousPage, {choix: this.choix});
+    this.navCtrl.setRoot(ContacteznousPage, { choix: this.choix });
   }
   redirectionPlats() {
-    this.navCtrl.setRoot(PlatPage, {choix: this.choix});
+    this.navCtrl.setRoot(PlatPage, { choix: this.choix });
   }
   redirectionGateau() {
-    this.navCtrl.setRoot(GateauPage, {choix: this.choix});
+    this.navCtrl.setRoot(GateauPage, { choix: this.choix });
   }
   redirectionHome(selected: string) {
     this.navCtrl.setRoot(HomePage, { choix: selected });
   }
   redirectionPanier() {
-    this.navCtrl.setRoot(PanierPage, {choix: this.choix});
-  }
-
-  test() {
-    console.log("ok");
+    this.navCtrl.setRoot(PanierPage, { choix: this.choix });
   }
 }

@@ -1,3 +1,4 @@
+import { ToastProvider } from './../../providers/toast/toast';
 import { AppServiceProvider } from './../../providers/app-service/app-service';
 import { ApiServiceProvider } from './../../providers/api-service/api-service';
 import { Component } from '@angular/core';
@@ -30,19 +31,9 @@ export class MdpoubliePage {
   password: string = "";
   passwordConfirm: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastService: ToastProvider,
     private apiService: ApiServiceProvider, private appService: AppServiceProvider) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
-  }
-
-  //Display a popup when there is a problem :
-  presentToast(message) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-    });
-
-    toast.present();
   }
 
   //Function when the user click on modify button
@@ -70,23 +61,23 @@ export class MdpoubliePage {
     }
 
     if (this.password.length < 8) {
-      this.presentToast("Votre mot de passe doit contenir 8 caractères");
+      this.toastService.presentToast("Votre mot de passe doit contenir 8 caractères");
       return;
     }
     if (possede_maj == false) {
-      this.presentToast("Il faut au moins une majuscule dans le mot de passe");
+      this.toastService.presentToast("Il faut au moins une majuscule dans le mot de passe");
       return;
     }
     if (possede_min == false) {
-      this.presentToast("Il faut au moins une minuscule dans le mot de passe");
+      this.toastService.presentToast("Il faut au moins une minuscule dans le mot de passe");
       return;
     }
     if (possede_nombre_password == false) {
-      this.presentToast("Il faut au moins un nombre dans le mot de passe");
+      this.toastService.presentToast("Il faut au moins un nombre dans le mot de passe");
       return;
     }
     if (this.password != this.passwordConfirm) {
-      this.presentToast("Vos deux mots de passe doivent correspondre");
+      this.toastService.presentToast("Vos deux mots de passe doivent correspondre");
       return;
     }
     if (this.appService.email || window.localStorage.getItem('email')){
@@ -98,11 +89,11 @@ export class MdpoubliePage {
           response => {
             data = response;
             if (data._body != "modified") {
-              this.presentToast("Erreur - Merci de réessayer plus tard");
+              this.toastService.presentToast("Erreur - Merci de réessayer plus tard");
               return;
             }
             else {
-                this.presentToast("Mot de passe modifié");
+                this.toastService.presentToast("Mot de passe modifié");
                 this.navCtrl.push(HomePage);
             }
           }
