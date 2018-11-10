@@ -1,10 +1,6 @@
 page-gateau {
   @import "../../assets/style/styles.scss";
 
-  @font-face {
-    font-family: "AmplifyPersonal";
-    src: url("amplifypersonal.ttf")
-  }
 .partie1{
   width: 100%;
   background-image: url("../../assets/imgs/bandeautitre.jpg");
@@ -45,16 +41,33 @@ page-gateau {
 
 .tooltip{
   visibility: hidden;
-  background-color: #555;
+  background-color: rgb(209,124,73);
   color: #fff;
   text-align: center;
   border-radius: 6px;
   position: absolute;
-  left: 100%;
-  top: 30%;
+  bottom: 0%;
   z-index: 1;
   opacity: 0;
   transition: opacity 0.5s;
+  height: 100%;
+  width: 100%;
+}
+
+.button-md:hover:not(.disable-hover){
+  background-color: white;
+}
+
+.tooltip .button{
+  background-color: white;
+  color: black;
+}
+
+.tooltip .ico{
+  display: flex;
+  width: 1vw;
+  height: 1vw;
+  margin: auto;
 }
 
 .gateau:hover .tooltip{

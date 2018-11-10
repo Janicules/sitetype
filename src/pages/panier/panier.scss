@@ -1,3 +1,25 @@
 page-panier {
+    @import "../../assets/style/styles.scss";
 
+    .votrepanier{
+        width: 90vw;
+        height: 5vw;
+        margin: auto;
+        font-size: 3vw;
+        padding-top: 1.5vw;
+        border-bottom: rgb(209,124,73) 2px solid;
+        font-family: 'GothamBold';
+        color: rgb(83,33,13);
+    }
+
+    .vide{
+        width: 90vw;
+        height: 12vw;
+        font-size: 2vw;
+        color: rgb(83,33,13);
+        margin: auto;
+        padding-top: 2vw;
+        font-family: 'GothamBlack';
+        opacity: 0.8;
+    }
 }
