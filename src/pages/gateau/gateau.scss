@@ -39,12 +39,34 @@ page-gateau {
   border: 0.5px solid black;
   background: transparent;
   flex-shrink: 0;
+  position: relative;
+  display: inline-block;
 }
 
-  .listegateau img {
-    width: 10vw;
-    height: 7vw;
-  }
+.tooltip{
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  left: 100%;
+  top: 30%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.gateau:hover .tooltip{
+  visibility: visible;
+  opacity: 1;
+}
+
+.listegateau img {
+  width: 10vw;
+  height: 7vw;
+}
+
 .titregateau{
   font-size: 1.7vw;
   text-align: center;

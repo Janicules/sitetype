@@ -37,10 +37,10 @@
     <div class="enregistrement">
       <ion-list>
         <ion-item>
-          <ion-input type="text" placeholder="Votre mail ou nom d'utilisateur" style="color: black;"></ion-input>
+          <ion-input type="text" [(ngModel)]="email" placeholder="Votre mail ou nom d'utilisateur" style="color: black;" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="password" placeholder="Votre mot de passe" style="color: black;"></ion-input>
+          <ion-input type="password" [(ngModel)]="password" placeholder="Votre mot de passe" style="color: black;" required></ion-input>
         </ion-item>
       </ion-list>
       <div id="mdpoublie" style="cursor: pointer;" (click)="redirectionMdp()">Mot de passe oublié?</div>
@@ -49,7 +49,7 @@
         <p>Se souvenir de moi</p>
       </div>
     </div>
-    <button ion-button style="background-color: #737373; margin-left: 30%; width: 40%; margin-top: 2%; height:6%; font-size: 100%">Connexion</button>
+    <button ion-button (click)="connexion()" style="background-color: #737373; margin-left: 30%; width: 40%; margin-top: 2%; height:6%; font-size: 100%">Connexion</button>
     <div class="redirection">Vous n'avez pas de compte? Vous pouvez suivre ce <a style="cursor: pointer;" (click)="redirectionInscription()">lien</a>
       pour créer un compte.</div>
     <footer>

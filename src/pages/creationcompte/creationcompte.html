@@ -37,38 +37,38 @@
     <div class="enregistrement">
       <ion-list>
         <ion-item>
-          <ion-input type="text" placeholder="Adresse e-mail" style="color: black;"></ion-input>
+          <ion-input type="text" [(ngModel)]="email" placeholder="Adresse e-mail" style="color: black;"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="Nom d'utilisateur" style="color: black;"></ion-input>
+          <ion-input type="text" [(ngModel)]="username" placeholder="Nom d'utilisateur" style="color: black;"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="password" placeholder="Votre mot de passe" style="color: black;"></ion-input>
+          <ion-input type="password" [(ngModel)]="password" placeholder="Votre mot de passe" style="color: black;"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="password" placeholder="Confirmer votre mot de passe" style="color: black;"></ion-input>
+          <ion-input type="password" [(ngModel)]="passwordConfirm" placeholder="Confirmer votre mot de passe" style="color: black;"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="Votre nom" style="color: black;"></ion-input>
+          <ion-input type="text" [(ngModel)]="lastName" placeholder="Votre nom" style="color: black;"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="Votre prénom" style="color: black;"></ion-input>
+          <ion-input type="text" [(ngModel)]="firstName" placeholder="Votre prénom" style="color: black;"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="Adresse de livraison" style="color: black;"></ion-input>
+          <ion-input type="text" [(ngModel)]="address" placeholder="Adresse de livraison" style="color: black;"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="Ville" style="color: black;"></ion-input>
+          <ion-input type="text" [(ngModel)]="city" placeholder="Ville" style="color: black;"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="Code Postale" style="color: black;"></ion-input>
+          <ion-input type="text" [(ngModel)]="zipCode" placeholder="Code Postale" style="color: black;"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="Téléphone" style="color: black;"></ion-input>
+          <ion-input type="text" [(ngModel)]="phone" placeholder="Téléphone" style="color: black;"></ion-input>
         </ion-item>
       </ion-list>
     </div>
-    <button ion-button style="background-color: #737373; margin-left: 30%; width: 40%; margin-top: 2%; height:6%; font-size: 100%; margin-bottom: 3vw;">Valider</button>
+    <button ion-button (click)="inscription()" style="background-color: #737373; margin-left: 30%; width: 40%; margin-top: 2%; height:6%; font-size: 100%; margin-bottom: 3vw;">Valider</button>
     <footer>
       <div class="baspage">
         <div class="info width-footer">

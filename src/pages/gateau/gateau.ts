@@ -46,4 +46,8 @@ export class GateauPage {
   redirectionPanier() {
     this.navCtrl.setRoot(PanierPage, {choix: this.choix});
   }
+
+  test() {
+    console.log("ok");
+  }
 }
