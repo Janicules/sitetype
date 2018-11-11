@@ -40,10 +40,11 @@
             <div class="illustration"><img [src]="gateau.image" /></div>
             <div class="titregateau">{{ gateau.title }}</div>
             <div class="ingredients">{{ gateau.ingredients }}</div>
-            <div class="prix">{{ gateau.price }}</div>
+            <div class="prix">{{ gateau.euro }}<span>€{{ gateau.centime }}</span></div>
             <span class="tooltip">
               <div class="titretool">{{ gateau.titleTool }}</div>
               <div class="ingredienttool">{{ gateau.ingredientTool }}</div>
+              <p class="pricetool">{{ gateau.euro }}<span class="textTop">€{{ gateau.centime }}</span></p>
               <button ion-button (click)="addCart(gateau.title, gateau.price, gateau.image)" class="toolButton">Sélectionner</button>
               <div class="ico">
                 <img src='assets/imgs/fb.jpg'/>
