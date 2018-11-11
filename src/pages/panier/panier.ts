@@ -85,6 +85,17 @@ export class PanierPage {
     this.commandeService.commandArray[index] = { name: name, price: price, image: image, quantity: quantity, total: total };
 
   }
+
+  //Function to clear the cart
+  clearCart() {
+    this.panier = [];
+  }
+
+  //Function to pass on the payment part
+  validateCart() {
+    
+  }
+
   //Function to redirect the user to other pages
   redirectionMonCompte() {
     this.navCtrl.setRoot(ComptePage, { choix: this.choix });

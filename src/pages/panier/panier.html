@@ -77,10 +77,20 @@
               {{ commande.total }}
             </td>
           </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <button ion-button (click)="clearCart()" class="valider">Vider le panier</button>
+            </td>
+            <td>
+              <button ion-button (click)="validateCart()" class="valider">Valider le panier</button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
-
     <footer>
       <div class="baspage">
         <div class="info width-footer">
