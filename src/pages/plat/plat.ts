@@ -68,7 +68,39 @@ export class PlatPage {
   //Function when we click on the select button 
   addCart(name, price, image) {
     this.toastService.presentToast("Le produit a été ajouté à votre panier");
-    this.commandeService.commandArray.push({ name: name, price: price, image: image });
+
+    if (this.commandeService.commandArray) {
+      var find = this.commandeService.commandArray.findIndex(function (element) {
+        // return element.name == name;
+        return element.image == image
+      });
+
+      if (find >= 0) {
+        let name = this.commandeService.commandArray[find].name;
+        let price = this.commandeService.commandArray[find].price;
+        let image = this.commandeService.commandArray[find].image;
+        let quantity = this.commandeService.commandArray[find].quantity + 1;
+        
+        if (quantity > 20)
+          quantity = 20;
+
+        let tmpPrice = price.split("€");
+        tmpPrice = tmpPrice[0] + "." + tmpPrice[1];
+
+        let total: any = tmpPrice * quantity;
+        let tmpTotal = total.toString().split(".");
+        if (tmpTotal.length == 2) 
+          total = tmpTotal[0] + "€" + tmpTotal[1];
+        else
+          total = tmpTotal[0] + "€";
+
+        this.commandeService.commandArray[find] = { name: name, price: price, image: image, quantity: quantity, total: total };
+      }
+      else
+        this.commandeService.commandArray.push({ name: name, price: price, image: image, quantity: 1, total: price });
+    }
+    else
+      this.commandeService.commandArray.push({ name: name, price: price, image: image, quantity: 1, total: price });
   }
 
   //Functions to redirect the user to other pages :

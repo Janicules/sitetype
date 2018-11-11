@@ -30,8 +30,56 @@
         </div>
       </div>
     </header>
-    <div class="votrepanier">Votre panier</div>
-    <div class="vide">Il semble que votre panier soit vide pour le moment</div>
+
+    <div class="container-panier">
+      <div class="votrepanier">Votre panier</div>
+      <div class="vide" *ngIf="panier.length == 0">Il semble que votre panier soit vide pour le moment</div>
+      <table *ngIf="panier.length > 0">
+        <thead>
+          <tr>
+            <th class="product">Produit</th>
+            <th class="empty"></th>
+            <th class="price">Prix</th>
+            <th class="quantity">Quantité</th>
+            <th class="total">Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let commande of panier; let i = index">
+            <td>
+              <img class="product-image" [src]="commande.image" alt="product">
+            </td>
+
+            <td>
+              <p class="product-name">{{ commande.name }}</p>
+              <button ion-button class="product-button" (click)="removeProduct(i)">Supprimer</button>
+            </td>
+
+            <td class="product-price">
+              {{ commande.price }}
+            </td>
+
+            <td>
+              <div>
+                <div class="group-quantity">
+                  <div class="number-style">
+                    <span class="number-minus disabled" (click)="removeOne(i)"></span>
+                    <input [(ngModel)]="commande.quantity" type="number" step="1" min="1" max="20" title="Quantité"
+                      readonly>
+                    <span class="number-plus" (click)="addOne(i)"></span>
+                  </div>
+                </div>
+              </div>
+            </td>
+
+            <td class="product-price">
+              {{ commande.total }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <footer>
       <div class="baspage">
