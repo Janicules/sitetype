@@ -1,0 +1,140 @@
+page-panier {
+    @import "../../assets/style/styles.scss";
+
+    .votrepanier{
+        width: 90vw;
+        height: 5vw;
+        margin: auto;
+        font-size: 3vw;
+        padding-top: 1.5vw;
+        border-bottom: rgb(209,124,73) 2px solid;
+        font-family: 'GothamBold';
+        color: rgb(83,33,13);
+    }
+
+    .vide{
+        width: 90vw;
+        height: 12vw;
+        font-size: 2vw;
+        color: rgb(83,33,13);
+        margin: auto;
+        padding-top: 2vw;
+        font-family: 'GothamBlack';
+        opacity: 0.8;
+    }
+
+    table {
+        width: 90%;
+        margin: 15px auto 20px auto;
+        font-size: 14px;
+    }
+
+    thead {
+        width: 100%;
+        margin: 0px auto;
+        text-align: left;
+    }
+    
+    .product {
+        width: 32.6%;
+    }
+
+    .empty {
+        width: 20.3%;
+    }
+
+    .price {
+        width: 11%;
+    }
+
+    .quantity {
+        width: 25.1%
+    }
+
+    .total {
+        width: 11%;
+    }
+
+    th {
+        padding: 8px;
+    }
+
+    td {
+        padding: 8px;
+        border-top: solid 2px rgb(209,124,73);
+    }
+
+    .product-image {
+        max-width: 180px;
+        max-height: 180px;
+    }
+
+    .product-name {
+        font-size: 16px;
+        padding-bottom: 25px;
+        margin: 0 0 10px;
+    }
+
+    .product-button {
+        background-color: rgb(209,124,73);
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: white;
+    }
+
+    .product-price {
+        font-size: 18px;
+    }
+
+    .group-quantity {
+        margin-bottom: 15px;
+    }
+
+    .number-style span {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        margin: 0 10px;
+        cursor: pointer;
+        border-radius: 0 !important;
+        border: 2px solid #d6d4d4 !important;
+    }
+
+    .number-style span::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -1px 0 0 -5px;
+        width: 10px;
+        height: 2px;
+        background-color: #444444 !important;
+    }
+
+    .number-style input {
+        border: solid 2px #d6d4d4 !important;
+        display: inline-block;
+        width: 30px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 15px;
+        color: #000000;
+        -moz-appearance: textfield;
+    }
+
+    .number-style span.number-plus::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -5px 0 0 -1px;
+        width: 2px;
+        height: 10px;
+        background-color: #444444 !important;
+    }
+}

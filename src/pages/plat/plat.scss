@@ -1,0 +1,121 @@
+page-plat {
+  @import "../../assets/style/styles.scss";
+
+  .partie1{
+    width: 100%;
+    background-image: url("../../assets/imgs/bandeautitre.jpg");
+    background-size: 100% 100%;
+    height: 70px;
+    text-align: center;
+    color: rgb(83,33,13);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .titre{
+    font-size: 4vw;
+    font-family: 'fontawesome';
+  }
+  .contenuPlats{
+    width: 100%;
+    background-image: url("../../assets/imgs/fondgateau.jpg");
+    background-size: 100% 100%;
+  }
+
+  .listeplats{
+    width: 50%;
+    height: 95%;
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+    padding-bottom: 30px;
+  }
+
+  .plat{
+    width: 25%;
+    border: 0.5px solid black;
+    background: transparent;
+    flex-shrink: 0;
+    position: relative;
+    display: inline-block;
+  }
+
+  .tooltip{
+    visibility: hidden;
+    background-color: rgb(209,124,73);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 0%;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .button-md:hover:not(.disable-hover){
+    background-color: white;
+  }
+  
+  .tooltip .button{
+    background-color: white;
+    color: black;
+  }
+  
+  .tooltip .ico{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: auto;
+  }
+  
+  .ico img{
+    width: 20%;
+    height: 20%;
+  }
+  
+  .toolButton {
+    width: 100%;
+    margin: 10px 0px;
+  }
+  
+  .plat:hover .tooltip{
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .listeplats .illustration img {
+    width: 10vw;
+    height: 7vw;
+  }
+
+  .titreplat{
+    font-size: 1.7vw;
+    text-align: center;
+    font-family: 'GothamBook';
+    color: rgb(209,124,73);
+  }
+
+  .ingredients{
+    font-family: 'GothamThin';
+    text-align: center;
+    font-size: 1vw;
+  }
+
+  .prix{
+    font-family: 'GothamBlack';
+    text-align: center;
+    color: rgb(209,124,73);
+    font-size: 2vw;
+    margin-top: 11%;
+    font-family: 'GothamBlack';
+  }
+
+
+  .illustration{
+    margin-top: 20%;
+    margin-left: 12%;
+    width: 85%;
+  }
+}

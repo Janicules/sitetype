@@ -1,0 +1,81 @@
+page-contacteznous {
+  @import '../../assets/style/styles.scss';
+
+  #hello
+  {
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    margin-top: 5%;
+    font-size: 70px;
+    font-weight: bold;
+    color: darkred; 
+  }
+  #questions
+  {
+    text-align: center;
+    height: 16%;
+    font-size: 25px;
+    font-style: italic;
+    margin-top: 2%;
+  }
+  #letamessage{
+    height: 7%;
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+  }
+  #petittrait{
+    margin: auto;
+    width: 5%;
+    border: solid 1px rgb(83,33,13);
+    margin-bottom: 2%;
+  }
+  .contacter{
+    width: 60%;
+    margin: auto;
+    height: 20vw;
+  }
+  .item-input .label-md{
+    color: grey;
+  }
+  .list-md .item-block .item-inner{
+    border-bottom: 1px solid grey;
+  }
+  #map{
+    background-image: url('../assets/imgs/map.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 400px;
+    width: 100%;
+  }
+
+  ion-select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .item-md {
+    color: grey;
+    text-align: inherit;
+  }
+
+  .select-md {
+    padding-left: 0.7vw;
+  }
+
+  .ion-label[fixed] {
+    width: 200px;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  .horaires{
+    height: 3vw;
+    text-align: center;
+    margin-top: 2vw;
+    font-size: 1.7vw;
+  }
+}

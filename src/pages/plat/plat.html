@@ -1,0 +1,108 @@
+<ion-content>
+
+  <body>
+    <header id="top">
+      <div class="homelogo">
+        <a style="cursor: pointer; font-size: 4vw;" (click)="redirectionHome()">Le Touareg</a>
+        <div class="nav">
+          <ul class="menu">
+            <li class="commandez"><a href="" id="souligner">Commandez<span class="deroule"></span></a>
+              <ul class="submenu">
+                <li class="sousmenu" style="cursor: pointer;" (click)="redirectionPlats()">Plats</li>
+                <li class="sousmenu" style="cursor: pointer;" (click)="redirectionGateau()">Gateaux</li>
+              </ul>
+            </li>
+            <li class="compte" style="cursor: pointer;" (click)="redirectionMonCompte()">Mon Compte</li>
+            <li class="contact" style="cursor: pointer;" (click)="redirectionContacteznous()">Contactez-nous</li>
+          </ul>
+        </div>
+        <img class="panier" src="assets/imgs/panier.png" alt="panier" style="cursor: pointer;" (click)="redirectionPanier()" />
+      </div>
+      <div class="deuxiemestrate">
+        <div class="menu">
+          <ul class="livraison" [ngClass]="{choixSelected: choix == 'livraison'}" style="cursor: pointer;" (click)="redirectionHome('livraison')"><img
+              class="icone" src="assets/imgs/livraison.png" alt="icone" />En
+            Livraison</ul>
+          <ul class="emporter" [ngClass]="{choixSelected: choix == 'emporter'}" style="cursor: pointer;" (click)="redirectionHome('emporter')"><img
+              class="icone" src="assets/imgs/emporter.png" alt="icone" />A Emporter</ul>
+          <ul class="place" [ngClass]="{choixSelected: choix == 'place'}" style="cursor: pointer;" (click)="redirectionHome('place')"><img
+              class="icone" src="assets/imgs/surplace.png" alt="icone" />Sur Place</ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="partie1">
+      <div class="titre">Les Plats</div>
+    </div>
+    <div class="contenuPlats">
+      <div class="listeplats">
+        <div *ngFor="let plat of plats" class="plat">
+          <div class="illustration"><img [src]="plat.image" /></div>
+          <div class="titreplat">{{ plat.title }}</div>
+          <div class="ingredients">{{ plat.ingredients }}</div>
+          <div class="prix">{{ plat.price }}</div>
+          <span class="tooltip">
+            <div class="titretool">{{ plat.titleTool }}</div>
+            <div class="ingredienttool">{{ plat.ingredientTool }}</div>
+            <button ion-button (click)="addCart(plat.title, plat.price, plat.image)" class="toolButton">Sélectionner</button>
+            <div class="ico">
+              <img src='assets/imgs/fb.jpg' />
+              <img src='assets/imgs/twitter.jpg' />
+              <img src='assets/imgs/insta.jpg' />
+              <img src='assets/imgs/gplus.jpg' />
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="baspage">
+        <div class="info width-footer">
+          CATEGORIES
+          <div class="littleUnderlineFooter"></div>
+          <div class="liste">
+            <ion-item>
+              Gateaux
+              <ion-badge style="cursor: pointer;" (click)="redirectionGateau()">22</ion-badge>
+            </ion-item>
+            <ion-item>Plats
+              <ion-badge style="cursor: pointer;" (click)="redirectionPlats()">4</ion-badge>
+            </ion-item>
+          </div>
+        </div>
+        <div class="info width-footer">
+          CONTACTS
+          <div class="littleUnderlineFooter"></div>
+          <div class="adresse">
+            <ion-icon name="md-pin"></ion-icon>X rue de ?????, Code postal Ville
+          </div>
+          <div class="adresse">
+            <ion-icon name="md-phone-portrait"></ion-icon>00 33 6 ?? ?? ?? ??
+          </div>
+          <div class="adresse">
+            <ion-icon name="mail"></ion-icon>mail.resto@adresse.com
+          </div>
+        </div>
+      </div>
+      <div class="baspage2">
+        <div class="scroll-top">
+          <a href="#top">
+            <ion-icon name="ios-arrow-up" style="color: white;padding-top: 1vw; font-size: 1.5vw"></ion-icon>
+          </a>
+        </div>
+        <div class="crédits">© 2018 LE TOUAREG<small>Tous droits réservés</small></div>
+        <div class="reseauxsociaux">
+          <div class="rs">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </div>
+          <div class="rs">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </div>
+          <div class="rs">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</ion-content>
