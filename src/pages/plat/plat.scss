@@ -61,6 +61,44 @@ page-plat {
   .tooltip .button{
     background-color: white;
     color: black;
+    margin-top: 1vw;
+  }
+  
+  .tooltip .button-md {
+    height: 2vw;
+  }
+  
+  .tooltip .titretool{
+    font-family: "GothamBook";
+    margin-top: 1vw;
+    font-size: 1.7vw;
+  }
+
+  .tooltip .ingredienttool{
+    font-family: "GothamThin";
+    margin-top: 0.5vw;
+    color: black;
+    font-size: 1vw;
+  }
+  
+  .tooltip .pricetool {
+    font-family: "GothamBlack";
+    font-size: 1.7vw;
+    margin: 0;
+    height: 3vw;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+  }
+  
+  .tooltip .pricetool span {
+    padding-bottom: 3%;
+    font-size: 1.5vw;
+  }
+
+  .prix span {
+    padding-bottom: 6%;
+    font-size: 1.5vw;
   }
   
   .tooltip .ico{
@@ -76,8 +114,9 @@ page-plat {
   }
   
   .toolButton {
-    width: 100%;
+    width: 80%;
     margin: 10px 0px;
+    font-size: 1.3vw;
   }
   
   .plat:hover .tooltip{
@@ -110,6 +149,9 @@ page-plat {
     font-size: 2vw;
     margin-top: 11%;
     font-family: 'GothamBlack';
+    display: flex;
+    justify-content: center;
+    align-items: end;
   }
 
 
