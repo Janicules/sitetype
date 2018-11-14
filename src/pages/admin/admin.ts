@@ -48,6 +48,11 @@ export class AdminPage {
     .catch(err => console.log("error when getting commands"));
   }
 
+  //Function to get payments informations :
+  getPayments() {
+    
+  }
+
   filter(category, event) {
 
   }
