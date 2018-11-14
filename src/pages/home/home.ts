@@ -1,6 +1,7 @@
-import { AppServiceProvider } from './../../providers/app-service/app-service';
+import { AdminPage } from './../admin/admin';
+import { RedirectionProvider } from './../../providers/redirection/redirection';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { ComptePage } from '../compte/compte';
 import { ContacteznousPage } from '../contacteznous/contacteznous';
 import { PlatPage } from '../plat/plat';
@@ -15,8 +16,36 @@ export class HomePage {
 
   choix: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
+    private redirectionService: RedirectionProvider) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
+    
+    if (location.search != "" && !this.redirectionService.redirected) {
+      const params = location.search.split("?")[1].split("=");
+
+      for (let i = 0; i < params.length; i++) {
+        if (params[i] == "success") {
+          this.redirectionService.redirected = true;
+          this.presentToast('Paiement avec PayPal réalisé, la commande a été ajoutée avec succès');
+          return;
+        }
+        else if (params[i] == "cancel") {
+          this.redirectionService.redirected = true;
+          this.presentToast('Paiement avec PayPal annulé');
+          return;
+        }
+      }
+    }
+  }
+
+  //Function to display a little text 
+  presentToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 5000,
+    });
+
+    toast.present();
   }
 
   redirectionMonCompte() {
@@ -41,5 +70,9 @@ export class HomePage {
 
   redirectionPanier() {
     this.navCtrl.setRoot(PanierPage, {choix: this.choix});
+  }
+
+  redirectionAdmin() {
+    this.navCtrl.setRoot(AdminPage, {choix: this.choix});
   }
 }

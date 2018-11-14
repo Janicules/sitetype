@@ -31,49 +31,56 @@
       </div>
     </header>
 
-    <div id="hello">Hello</div>
-    <div id="questions"> Avez-vous des questions? N'hésitez pas à les poser</div>
-    <div id="letamessage">Laissez-nous un message</div>
-    <div id="petittrait"></div>
-    <div class="contacter">
-      <ion-list>
-        <ion-item>
-          <ion-input [(ngModel)]="lastName" type="text" placeholder="Puis-je savoir votre nom?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input [(ngModel)]="firstName" type="text" placeholder="Puis-je savoir votre prénom?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input [(ngModel)]="email" type="text" placeholder="Quel est votre e-mail?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input [(ngModel)]="phone" type="text" placeholder="Et votre numéro de téléphone ?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-select interface="popover" placeholder="Sélection" [(ngModel)]="subject">
-            <ion-option>Suggestion</ion-option>
-            <ion-option>Recrutement</ion-option>
-            <ion-option>Réclamation</ion-option>
-            <ion-option>Problème technique</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item style="border-bottom-color: inherit; box-shadow: inherit;">
-          <ion-textarea [(ngModel)]="message" placeholder="Message"></ion-textarea>
-        </ion-item>
-      </ion-list>
+    <div class="alignment">
+        <div class="paiement">Paiement</div>
+        <ion-list>
+          <ion-item>
+            <ion-label stacked>Numéro de carte</ion-label>
+            <ion-input style="color: rgb(209,124,73);" type="text" [(ngModel)]="card"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-select style="color: rgb(209,124,73);" interface="popover" placeholder="Mois" [(ngModel)]="month">
+              <ion-option value="01" selected>01</ion-option>
+              <ion-option value="02">02</ion-option>
+              <ion-option value="03">03</ion-option>
+              <ion-option value="04">04</ion-option>
+              <ion-option value="05">05</ion-option>
+              <ion-option value="06">06</ion-option>
+              <ion-option value="07">07</ion-option>
+              <ion-option value="08">08</ion-option>
+              <ion-option value="09">09</ion-option>
+              <ion-option value="10">10</ion-option>
+              <ion-option value="11">11</ion-option>
+              <ion-option value="12">12</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-select style="color: rgb(209,124,73);" interface="popover" placeholder="Année" [(ngModel)]="year">
+              <ion-option value="19" selected>19</ion-option>
+              <ion-option value="20">20</ion-option>
+              <ion-option value="21">21</ion-option>
+              <ion-option value="22">22</ion-option>
+              <ion-option value="23">23</ion-option>
+              <ion-option value="24">24</ion-option>
+              <ion-option value="25">25</ion-option>
+              <ion-option value="26">26</ion-option>
+              <ion-option value="27">27</ion-option>
+              <ion-option value="28">28</ion-option>
+              <ion-option value="29">29</ion-option>
+              <ion-option value="30">30</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked>Cryptographe</ion-label>
+            <ion-input style="color: rgb(209,124,73);" type="text" [(ngModel)]="cvv"></ion-input>
+          </ion-item>
+        </ion-list>
+    
+        <div class="container-validate-button">
+            <button ion-button (click)="payer()" class="validate-button">Valider</button>
+        </div>
     </div>
-    <button ion-button (click)="sendMessage()" style="background-color: #737373; margin-left: 30%; width: 40vw; margin-top: 7vw; height:3vw; font-size: 100%">Envoyer</button>
-    <div class="horaires">Nos horaires d'ouverture</div>
-    <div id="petittrait"></div>
-    <div class="jours">
-      Lundi:
-      Mardi:
-      Mercredi:
-      Jeudi:
-      Vendredi:
-      Week-end:
-    </div>
-    <div id="map"></div>
+    
     <footer>
       <div class="baspage">
         <div class="info width-footer">
@@ -109,7 +116,7 @@
             <ion-icon name="ios-arrow-up" style="color: white;padding-top: 1vw; font-size: 1.5vw"></ion-icon>
           </a>
         </div>
-        <div class="crédits">© 2018 LE TOUAREG<small>Tous droits réservés</small></div>
+        <div class="crédits">© 2018 LE TOUAREG<small class="small">Tous droits réservés</small></div>
         <div class="reseauxsociaux">
           <div class="rs">
             <ion-icon name="logo-facebook"></ion-icon>

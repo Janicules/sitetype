@@ -1,3 +1,5 @@
+import { AdminPage } from './../pages/admin/admin';
+import { PaiementPage } from './../pages/paiement/paiement';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -20,6 +22,10 @@ import { HttpModule } from '@angular/http';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { CommandeProvider } from '../providers/commande/commande';
 import { ToastProvider } from '../providers/toast/toast';
+import { ConfirmerPage } from '../pages/confirmer/confirmer';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { RedirectionProvider } from '../providers/redirection/redirection';
+import {NgxPaginationModule, PaginatePipe, PaginationControlsDirective} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -31,12 +37,16 @@ import { ToastProvider } from '../providers/toast/toast';
     GateauPage,
     PlatPage,
     MdpoubliePage,
-    CreationcomptePage
+    CreationcomptePage,
+    ConfirmerPage,
+    PaiementPage,
+    AdminPage,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    NgxPaginationModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -48,7 +58,10 @@ import { ToastProvider } from '../providers/toast/toast';
     GateauPage,
     PlatPage,
     MdpoubliePage,
-    CreationcomptePage
+    CreationcomptePage,
+    ConfirmerPage,
+    PaiementPage,
+    AdminPage
   ],
   providers: [
     StatusBar,
@@ -59,6 +72,8 @@ import { ToastProvider } from '../providers/toast/toast';
     EmailComposer,
     CommandeProvider,
     ToastProvider,
+    InAppBrowser,
+    RedirectionProvider
   ]
 })
 export class AppModule { }

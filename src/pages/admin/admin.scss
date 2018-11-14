@@ -1,0 +1,59 @@
+page-admin {
+    @import "../../assets/style/styles.scss";
+
+    .container-table {
+        width: 90%;
+        margin: 3vh auto 3vh auto;
+
+        .title-table {
+            height: 5vw;
+            font-size: 3vw;
+            padding-top: 1.5vw;
+            border-bottom: rgb(209,124,73) 2px solid;
+            font-family: 'GothamBold';
+            color: rgb(83,33,13);
+            margin: 0px 0px 2vh 0px;
+        }
+
+        .command-filter {
+            margin-bottom: 20px;
+
+            input {
+                width: 100%;
+                height: 45px;
+            }
+        }
+
+        table {
+            width: 100%;
+        }
+        
+        .command-table table thead th, table tbody td {
+            width: 12.5%;
+            padding: 8px;
+            border: solid 1px black;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .payment-table {
+            margin-top: 50px;
+
+            .payment-filter {
+                display: flex;
+                margin-bottom: 20px; 
+                
+                ion-select {
+                    width: 30%;
+                }
+
+                input {
+                    width: 70%;
+                }
+            }
+        }
+    }
+}

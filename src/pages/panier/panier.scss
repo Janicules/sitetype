@@ -65,8 +65,8 @@ page-panier {
     }
 
     .product-image {
-        max-width: 180px;
-        max-height: 180px;
+        max-width: 10vw;
+        max-height: 10vw;
     }
 
     .product-name {
@@ -76,7 +76,7 @@ page-panier {
     }
 
     .product-button {
-        background-color: rgb(209,124,73);
+        background-color: rgb(83,33,13);
         padding-top: 10px;
         padding-bottom: 10px;
         font-size: 12px;
@@ -136,5 +136,13 @@ page-panier {
         width: 2px;
         height: 10px;
         background-color: #444444 !important;
+    }
+
+    .valider{
+        background-color: rgb(83,33,13);
+    }
+
+    .button-md:hover:not(.disable-hover){
+        background-color: rgb(83,33,13);
     }
 }

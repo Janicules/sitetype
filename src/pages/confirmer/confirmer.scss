@@ -1,0 +1,98 @@
+page-confirmer {
+    @import "../../assets/style/styles.scss";
+
+  .confirmercommande{
+    width: 90vw;
+    height: 5vw;
+    margin: auto;
+    font-size: 3vw;
+    padding-top: 1.5vw;
+    border-bottom: rgb(209,124,73) 2px solid;
+    font-family: 'GothamBold';
+    color: rgb(83,33,13);
+  }
+
+  .inscription{
+    width: 90vw;
+    margin: 1vw auto;
+    height: 3vw;
+    padding-top: 1.5vw;
+    background-color: lightgrey;
+    font-family: 'GothamBook';
+    color: rgb(83,33,13);
+    border-radius: 5px;
+    padding-bottom: 2vw;
+    padding-left: 3vw;
+    border: grey solid 1px;
+  }
+
+  .enregistrement{
+    width: 50vw;
+    padding-top: 2vw;
+    padding-left: 5vw;
+  }
+  
+  .infolivraison{
+    width: 90vw;
+    margin: 4vw auto; 
+  }
+
+  .alivrer{
+    font-size: 2.5vw;
+    border-left: 5px solid rgb(209,124,73);
+    padding-left: 1vw;
+    color: rgb(83,33,13);
+  }
+  .checkbox-md .checkbox-checked{
+    border-color:#737373;
+    background-color:#737373;
+    margin-right: 2%;
+  }
+
+  .table-elements {
+    border: rgb(83,33,13) 1px solid;
+    padding: 8px;
+  }
+
+  .table-elements h3 {
+    color: grey;
+    font-size: 2.3vw;
+  }
+
+  h4 {
+    font-size: 2.1vw;
+  }
+
+  .paiement {
+    width: 90%;
+    margin: 4vw auto;
+  }
+
+  .paiement .item-md {
+    color: rgb(209,124,73);
+    width: 200px;
+    text-align: left;
+  }
+
+  .paiement .radio-md .radio-checked {
+    border-color: rgb(209,124,73);
+  }
+
+  .paiement .radio-md .radio-inner {
+    background-color: rgb(209,124,73);
+  }
+
+  .paiement .item-radio-checked.item-md ion-label {
+    color: rgb(209,124,73);
+  }
+
+  .container-validate-button {
+    width: 90%;
+    margin: 2vw auto;
+  }
+
+  .validate-button {
+    width: 100%;
+    background-color: rgb(209,124,73);
+  }
+}

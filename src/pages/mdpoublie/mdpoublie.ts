@@ -80,7 +80,7 @@ export class MdpoubliePage {
       this.toastService.presentToast("Vos deux mots de passe doivent correspondre");
       return;
     }
-    if (this.appService.email || window.localStorage.getItem('email')){
+    if (this.appService.email || window.localStorage.getItem('email')) {
       const email = this.appService.email ? this.appService.email : window.localStorage.getItem('email');
 
       let data: any;
@@ -93,13 +93,13 @@ export class MdpoubliePage {
               return;
             }
             else {
-                this.toastService.presentToast("Mot de passe modifié");
-                this.navCtrl.push(HomePage);
+              this.toastService.presentToast("Mot de passe modifié");
+              this.navCtrl.push(HomePage);
             }
           }
         )
         .catch(err => console.log("error for API ", err));
-      }
+    }
   }
 
   //Functions to redirect the user to other pages

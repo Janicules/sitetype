@@ -31,49 +31,73 @@
       </div>
     </header>
 
-    <div id="hello">Hello</div>
-    <div id="questions"> Avez-vous des questions? N'hésitez pas à les poser</div>
-    <div id="letamessage">Laissez-nous un message</div>
-    <div id="petittrait"></div>
-    <div class="contacter">
-      <ion-list>
-        <ion-item>
-          <ion-input [(ngModel)]="lastName" type="text" placeholder="Puis-je savoir votre nom?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input [(ngModel)]="firstName" type="text" placeholder="Puis-je savoir votre prénom?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input [(ngModel)]="email" type="text" placeholder="Quel est votre e-mail?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input [(ngModel)]="phone" type="text" placeholder="Et votre numéro de téléphone ?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-select interface="popover" placeholder="Sélection" [(ngModel)]="subject">
-            <ion-option>Suggestion</ion-option>
-            <ion-option>Recrutement</ion-option>
-            <ion-option>Réclamation</ion-option>
-            <ion-option>Problème technique</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item style="border-bottom-color: inherit; box-shadow: inherit;">
-          <ion-textarea [(ngModel)]="message" placeholder="Message"></ion-textarea>
-        </ion-item>
-      </ion-list>
+    <div class="confirmercommande">Confirmer votre commande</div>
+    <div class="inscription" *ngIf="!mail">Vous avez un compte? Vous pouvez suivre ce <a style="cursor: pointer;"
+        (click)="redirectionMonCompte()">lien</a> pour vous connecter </div>
+    <table style="width: 90vw; margin: auto;">
+      <tr>
+        <td class="table-elements">
+          <h3>Prix total des produits</h3>
+          <h4>{{ total }}</h4>
+        </td>
+        <td class="table-elements" *ngIf="choix == 'livraison'">
+          <h3>Frais de livraison</h3>
+          <h4>Livraison gratuite</h4>
+        </td>
+        <td class="table-elements" *ngIf="choix == 'livraison'">
+          <h3>Prix total</h3>
+          <h4>{{ total }}</h4>
+        </td>
+      </tr>
+    </table>
+    <div class="infolivraison">
+      <div class="alivrer">Information de livraison de votre compte</div>
+      <div class="enregistrement">
+        <ion-list>
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="address" placeholder="Adresse de livraison" style="color: black;"
+              required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="city" placeholder="Ville" style="color: black;" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="text" [(ngModel)]="zipCode" placeholder="Code postal" style="color: black;" required></ion-input>
+          </ion-item>
+        </ion-list>
+      </div>
     </div>
-    <button ion-button (click)="sendMessage()" style="background-color: #737373; margin-left: 30%; width: 40vw; margin-top: 7vw; height:3vw; font-size: 100%">Envoyer</button>
-    <div class="horaires">Nos horaires d'ouverture</div>
-    <div id="petittrait"></div>
-    <div class="jours">
-      Lundi:
-      Mardi:
-      Mercredi:
-      Jeudi:
-      Vendredi:
-      Week-end:
+    <div class="paiement">
+      <div class="alivrer">Information de paiement</div>
+      <div class="checkbox">
+        <ion-list radio-group (ionChange)="getPayment()" [(ngModel)]="payment" no-lines>
+
+          <ion-item>
+            <ion-label>Carte bancaire</ion-label>
+            <ion-radio value="card" item-left></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Espèce</ion-label>
+            <ion-radio value="cash" item-left></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Paypal</ion-label>
+            <ion-radio value="paypal" item-left></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Ticket restaurant</ion-label>
+            <ion-radio value="ticket_restaurant" item-left></ion-radio>
+          </ion-item>
+        </ion-list>
+      </div>
     </div>
-    <div id="map"></div>
+    <div class="container-validate-button">
+      <button ion-button (click)="payer()" class="validate-button">{{ textValidate }}</button>
+    </div>
+
     <footer>
       <div class="baspage">
         <div class="info width-footer">
@@ -109,7 +133,7 @@
             <ion-icon name="ios-arrow-up" style="color: white;padding-top: 1vw; font-size: 1.5vw"></ion-icon>
           </a>
         </div>
-        <div class="crédits">© 2018 LE TOUAREG<small>Tous droits réservés</small></div>
+        <div class="crédits">© 2018 LE TOUAREG<small class="small">Tous droits réservés</small></div>
         <div class="reseauxsociaux">
           <div class="rs">
             <ion-icon name="logo-facebook"></ion-icon>

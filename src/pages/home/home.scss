@@ -33,7 +33,7 @@ page-home {
   }
   .homebody2{
     text-align: center;
-    background-color: rgb(209,124,73);
+    background-color: black;
     font-size: 27px;
     color: white;
     padding-top: 32px;
@@ -42,15 +42,29 @@ page-home {
     font-weight: bold;
   }
   .homebody3{
-    height: 340px;
+    height: 50vw;
     width: 100%;
     display: flex;
+    margin: auto;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
-
+  .boisson{
+    width: 100%;
+    font-size: 3vw;
+    text-transform: uppercase;
+    color: white;
+    font-family: 'GothamBold';
+    margin: auto;
+    background-image: url("../../assets/imgs/boisson.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    position: relative;
+    height: 17vw;
+  }
   .container{
       width: 50%;
-      height: 100%;
       position: relative;
       background: none;
   }
@@ -86,6 +100,22 @@ page-home {
     position: relative;
   }
 
+  .produittrois{
+    background-image: url("../../assets/imgs/entree.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    position: relative;
+  }
+
+  .produitquatre{
+    background-image: url("../../assets/imgs/tajine.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: inline-block;
+    position: relative;
+  }
+
   .overlay {
     position: relative;
   }
@@ -106,11 +136,12 @@ page-home {
   }
 
   .orange:before {
-    background-color: rgba(209,124,73,0.5);
+    background-color: black;
+    opacity: 0.6;
   }
 
   .img:hover, .txtgauche:hover .img{
-    background-color: rgb(209,124,73);
+    background-color: black;
     opacity: 0.5;
 
   }

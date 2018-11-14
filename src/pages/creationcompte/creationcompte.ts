@@ -35,8 +35,8 @@ export class CreationcomptePage {
   firstName: string = "";
   address: string = "";
   city: string = "";
-  zipCode: string = "";
-  phone: string = "";
+  zipCode: number;
+  phone: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastService: ToastProvider,
     private apiService: ApiServiceProvider, private appService: AppServiceProvider) {
@@ -139,19 +139,19 @@ export class CreationcomptePage {
       this.toastService.presentToast("La ville ne peut pas contenir de chiffre");
       return;
     }
-    if (this.zipCode.length != 5) {
+    if (this.zipCode.toString().length != 5) {
       this.toastService.presentToast("Il faut 5 chiffres dans le code postal");
       return;
     }
-    if (isNaN(parseInt(this.zipCode))) {
+    if (isNaN(this.zipCode)) {
       this.toastService.presentToast("Le code postal ne doit contenir que des chiffres");
       return;
     }
-    if (this.phone.length != 10) {
+    if (this.phone.toString().length != 10) {
       this.toastService.presentToast("Il faut 10 chiffres pour le numéro de téléphone");
       return;
     }
-    if (isNaN(parseInt(this.phone))) {
+    if (isNaN(this.phone)) {
       this.toastService.presentToast("Le téléphone ne doit contenir que des chiffres");
       return;
     }

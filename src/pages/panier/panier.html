@@ -6,7 +6,7 @@
         <a style="cursor: pointer; font-size: 4vw;" (click)="redirectionHome()">Le Touareg</a>
         <div class="nav">
           <ul class="menu">
-            <li class="commandez"><a href="" id="souligner">Commandez<span class="deroule"></span></a>
+            <li class="commandez"><a id="souligner">Commandez<span class="deroule"></span></a>
               <ul class="submenu">
                 <li class="sousmenu" style="cursor: pointer;" (click)="redirectionPlats()">Plats</li>
                 <li class="sousmenu" style="cursor: pointer;" (click)="redirectionGateau()">Gateaux</li>
@@ -77,10 +77,27 @@
               {{ commande.total }}
             </td>
           </tr>
+          <tr style="height: 7vh;">
+            <td style="font-size: 18px; font-weight: bold;">Prix Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="font-size: 18px; font-weight: bold;">{{ total }}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <button ion-button (click)="clearCart()" class="valider">Vider le panier</button>
+            </td>
+            <td>
+              <button ion-button (click)="validateCart()" class="valider">Valider le panier</button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
-
     <footer>
       <div class="baspage">
         <div class="info width-footer">

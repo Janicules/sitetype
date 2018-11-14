@@ -1,6 +1,7 @@
+import { ConfirmerPage } from './../confirmer/confirmer';
 import { CommandeProvider } from './../../providers/commande/commande';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ComptePage } from '../compte/compte';
 import { ContacteznousPage } from '../contacteznous/contacteznous';
 import { PlatPage } from '../plat/plat';
@@ -25,6 +26,7 @@ export class PanierPage {
 
   //Variables for the cart :
   panier: any = [];
+  total: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private commandeService: CommandeProvider) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
@@ -32,6 +34,25 @@ export class PanierPage {
 
   ionViewWillEnter() {
     this.panier = this.commandeService.commandArray;
+
+    this.totalPrice();
+  }
+
+  //Calcul total price
+  totalPrice() {
+    this.total = 0;
+    this.panier.forEach(commande => {
+      let tmpPrice = commande.total.split("€");
+      tmpPrice = tmpPrice[0] + "." + tmpPrice[1];
+
+      this.total = parseFloat(tmpPrice) + parseFloat(this.total);
+    });
+
+    let tmpTotal = this.total.toString().split(".");
+    if (tmpTotal.length == 2)
+      this.total = tmpTotal[0] + "€" + tmpTotal[1];
+    else
+      this.total = tmpTotal[0] + "€";
   }
 
   //Remove the product in the array
@@ -60,6 +81,7 @@ export class PanierPage {
       total = tmpTotal[0] + "€";
 
     this.commandeService.commandArray[index] = { name: name, price: price, image: image, quantity: quantity, total: total };
+    this.totalPrice();
   }
 
   //Add a quantity
@@ -68,6 +90,7 @@ export class PanierPage {
     let price = this.commandeService.commandArray[index].price;
     let image = this.commandeService.commandArray[index].image;
     let quantity = this.commandeService.commandArray[index].quantity + 1;
+
 
     if (quantity > 20)
       quantity = 20;
@@ -83,8 +106,20 @@ export class PanierPage {
       total = tmpTotal[0] + "€";
 
     this.commandeService.commandArray[index] = { name: name, price: price, image: image, quantity: quantity, total: total };
-
+    this.totalPrice();
   }
+
+  //Function to clear the cart
+  clearCart() {
+    this.panier = [];
+    this.commandeService.commandArray = [];
+  }
+
+  //Function to pass on the payment part
+  validateCart() {
+    this.navCtrl.setRoot(ConfirmerPage, { choix: this.choix, total: this.total, panier: this.panier });
+  }
+
   //Function to redirect the user to other pages
   redirectionMonCompte() {
     this.navCtrl.setRoot(ComptePage, { choix: this.choix });

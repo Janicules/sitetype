@@ -1,3 +1,9 @@
+<!--
+  Generated template for the AdminPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-content>
 
   <body>
@@ -14,6 +20,7 @@
             </li>
             <li class="compte" style="cursor: pointer;" (click)="redirectionMonCompte()">Mon Compte</li>
             <li class="contact" style="cursor: pointer;" (click)="redirectionContacteznous()">Contactez-nous</li>
+            <li class="contact" style="cursor: pointer;" (click)="redirectionAdmin()">Administration</li>
           </ul>
         </div>
         <img class="panier" src="assets/imgs/panier.png" alt="panier" style="cursor: pointer;" (click)="redirectionPanier()" />
@@ -31,49 +38,90 @@
       </div>
     </header>
 
-    <div id="hello">Hello</div>
-    <div id="questions"> Avez-vous des questions? N'hésitez pas à les poser</div>
-    <div id="letamessage">Laissez-nous un message</div>
-    <div id="petittrait"></div>
-    <div class="contacter">
-      <ion-list>
-        <ion-item>
-          <ion-input [(ngModel)]="lastName" type="text" placeholder="Puis-je savoir votre nom?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input [(ngModel)]="firstName" type="text" placeholder="Puis-je savoir votre prénom?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input [(ngModel)]="email" type="text" placeholder="Quel est votre e-mail?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input [(ngModel)]="phone" type="text" placeholder="Et votre numéro de téléphone ?"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-select interface="popover" placeholder="Sélection" [(ngModel)]="subject">
-            <ion-option>Suggestion</ion-option>
-            <ion-option>Recrutement</ion-option>
-            <ion-option>Réclamation</ion-option>
-            <ion-option>Problème technique</ion-option>
+    <div class="container-table">
+      <div class="command-table">
+        <p class="title-table">Commandes passées</p>
+
+        <div class="command-filter">
+          <input type="text" placeholder="Filtrer par client" [(ngModel)]="userFilter" (keypress)="filter('user', $event)">
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Utilisateur</th>
+              <th>Produit</th>
+              <th>Quantité</th>
+              <th>Prix</th>
+              <th>Consommation</th>
+              <th>Ville</th>
+              <th>Code postal</th>
+              <th>N° de commande</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let command of commands | paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>{{ command.user }}</td>
+              <td>{{ command.product }}</td>
+              <td>{{ command.quantity }}</td>
+              <td>{{ command.unityPrice }}</td>
+              <td>{{ command.choice }}</td>
+              <td>{{ command.city }}</td>
+              <td>{{ command.zipCode }}</td>
+              <td>{{ command.num_command }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <p>Total de commandes : <strong>{{ totalCommands }}</strong></p>
+        </div>
+      </div>
+
+      <div class="payment-table">
+        <p class="title-table">Paiement des commandes passées</p>
+
+        <div class="payment-filter">
+          <ion-select interface="popover" placeholder="Filtrer par méthode de paiement / date de commande" [(ngModel)]="category">
+            <ion-option>---------</ion-option>
+            <ion-option>Méthode de paiement</ion-option>
+            <ion-option>Date de commande</ion-option>
           </ion-select>
-        </ion-item>
-        <ion-item style="border-bottom-color: inherit; box-shadow: inherit;">
-          <ion-textarea [(ngModel)]="message" placeholder="Message"></ion-textarea>
-        </ion-item>
-      </ion-list>
+
+          <input type="text" placeholder="Filtrer par client" [(ngModel)]="userFilter" (keypress)="filter('user', $event)">
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Utilisateur</th>
+              <th>Produit</th>
+              <th>Quantité</th>
+              <th>Prix</th>
+              <th>Consommation</th>
+              <th>Ville</th>
+              <th>Code postal</th>
+              <th>N° de commande</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let command of commands | paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>{{ command.user }}</td>
+              <td>{{ command.product }}</td>
+              <td>{{ command.quantity }}</td>
+              <td>{{ command.unityPrice }}</td>
+              <td>{{ command.choice }}</td>
+              <td>{{ command.city }}</td>
+              <td>{{ command.zipCode }}</td>
+              <td>{{ command.num_command }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <p>Total de commandes : <strong>{{ totalCommands }}</strong></p>
+        </div>
+      </div>
     </div>
-    <button ion-button (click)="sendMessage()" style="background-color: #737373; margin-left: 30%; width: 40vw; margin-top: 7vw; height:3vw; font-size: 100%">Envoyer</button>
-    <div class="horaires">Nos horaires d'ouverture</div>
-    <div id="petittrait"></div>
-    <div class="jours">
-      Lundi:
-      Mardi:
-      Mercredi:
-      Jeudi:
-      Vendredi:
-      Week-end:
-    </div>
-    <div id="map"></div>
+
     <footer>
       <div class="baspage">
         <div class="info width-footer">
@@ -109,7 +157,7 @@
             <ion-icon name="ios-arrow-up" style="color: white;padding-top: 1vw; font-size: 1.5vw"></ion-icon>
           </a>
         </div>
-        <div class="crédits">© 2018 LE TOUAREG<small>Tous droits réservés</small></div>
+        <div class="crédits">© 2018 LE TOUAREG<small class="small">Tous droits réservés</small></div>
         <div class="reseauxsociaux">
           <div class="rs">
             <ion-icon name="logo-facebook"></ion-icon>

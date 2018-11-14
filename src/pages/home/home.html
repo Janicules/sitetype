@@ -6,7 +6,7 @@
         <a style="cursor: pointer; font-size: 4vw;" (click)="redirectionHome()">Le Touareg</a>
         <div class="nav">
           <ul class="menu">
-            <li class="commandez"><a href="" id="souligner">Commandez<span class="deroule"></span></a>
+            <li class="commandez"><a id="souligner">Commandez<span class="deroule"></span></a>
               <ul class="submenu">
                 <li class="sousmenu" style="cursor: pointer;" (click)="redirectionPlats()">Plats</li>
                 <li class="sousmenu" style="cursor: pointer;" (click)="redirectionGateau()">Gateaux</li>
@@ -14,22 +14,24 @@
             </li>
             <li class="compte" style="cursor: pointer;" (click)="redirectionMonCompte()">Mon Compte</li>
             <li class="contact" style="cursor: pointer;" (click)="redirectionContacteznous()">Contactez-nous</li>
+            <li class="contact" style="cursor: pointer;" (click)="redirectionAdmin()">Administration</li>
           </ul>
         </div>
-        <img class="panier" src="assets/imgs/panier.png" alt="panier"  style="cursor: pointer;" (click)="redirectionPanier()"/>
+        <img class="panier" src="assets/imgs/panier.png" alt="panier" style="cursor: pointer;" (click)="redirectionPanier()" />
       </div>
       <div class="deuxiemestrate">
         <div class="menu">
-          <ul class="livraison" [ngClass]="{choixSelected: choix == 'livraison'}" style="cursor: pointer;" (click)="redirectionHome('livraison')"><img class="icone" src="assets/imgs/livraison.png" alt="icone" />En
-              Livraison</ul>
-          <ul class="emporter" [ngClass]="{choixSelected: choix == 'emporter'}" style="cursor: pointer;" (click)="redirectionHome('emporter')"><img class="icone" src="assets/imgs/emporter.png"
-              alt="icone" />A Emporter</ul>
-          <ul class="place" [ngClass]="{choixSelected: choix == 'place'}" style="cursor: pointer;" (click)="redirectionHome('place')"><img class="icone" src="assets/imgs/surplace.png"
-              alt="icone" />Sur Place</ul>
+          <ul class="livraison" [ngClass]="{choixSelected: choix == 'livraison'}" style="cursor: pointer;" (click)="redirectionHome('livraison')"><img
+              class="icone" src="assets/imgs/livraison.png" alt="icone" />En
+            Livraison</ul>
+          <ul class="emporter" [ngClass]="{choixSelected: choix == 'emporter'}" style="cursor: pointer;" (click)="redirectionHome('emporter')"><img
+              class="icone" src="assets/imgs/emporter.png" alt="icone" />A Emporter</ul>
+          <ul class="place" [ngClass]="{choixSelected: choix == 'place'}" style="cursor: pointer;" (click)="redirectionHome('place')"><img
+              class="icone" src="assets/imgs/surplace.png" alt="icone" />Sur Place</ul>
         </div>
       </div>
     </header>
-    
+
     <div class="homebody1">
       <div class="bandeau">LE TOUAREG<br>
         <div class="sousbandeau">RESTAURANT - COUSCOUS</div>
@@ -51,24 +53,37 @@
     </div>
     <div class="homebody3">
       <div class="container produitun overlay orange" style="cursor: pointer;" (click)="redirectionGateau()">
-          <div class="txtgauche" style="cursor: pointer;" (click)="redirectionGateau()">LES GATEAUX</div>
+        <div class="txtgauche" style="cursor: pointer;" (click)="redirectionGateau()">LES GATEAUX</div>
       </div>
       <div class="container produitdeux overlay orange" style="cursor: pointer;" (click)="redirectionPlats()">
           <div class="txtgauche" style="cursor: pointer;" (click)="redirectionPlats()">LES PLATS</div>
       </div>
     </div>
+
     <footer>
       <div class="baspage">
         <div class="info width-footer">
           CATEGORIES
           <div class="littleUnderlineFooter"></div>
           <div class="liste">
-            <ion-item>
-              Gateaux
-              <ion-badge style="cursor: pointer;" (click)="redirectionGateau()">22</ion-badge>
+            <ion-item>Les Couscous
+              <ion-badge style="cursor: pointer;" (click)="redirectionPlats()">18</ion-badge>
             </ion-item>
-            <ion-item>Plats
-              <ion-badge style="cursor: pointer;" (click)="redirectionPlats()">4</ion-badge>
+            <ion-item>
+              Les Entrées
+              <ion-badge style="cursor: pointer;" (click)="redirectionGateau()">7</ion-badge>
+            </ion-item>
+            <ion-item>
+              Les Tajines
+              <ion-badge style="cursor: pointer;" (click)="redirectionGateau()">3</ion-badge>
+            </ion-item>
+            <ion-item>
+              Les Boissons & Desserts
+              <ion-badge style="cursor: pointer;" (click)="redirectionGateau()">14</ion-badge>
+            </ion-item>
+            <ion-item>
+              Les Gateaux
+              <ion-badge style="cursor: pointer;" (click)="redirectionGateau()">22</ion-badge>
             </ion-item>
           </div>
         </div>
@@ -76,10 +91,10 @@
           CONTACTS
           <div class="littleUnderlineFooter"></div>
           <div class="adresse">
-            <ion-icon name="md-pin"></ion-icon>X rue de ?????, Code postal Ville
+            <ion-icon name="md-pin"></ion-icon>228 rue de Charenton 75012 PARIS
           </div>
           <div class="adresse">
-            <ion-icon name="md-phone-portrait"></ion-icon>00 33 6 ?? ?? ?? ??
+            <ion-icon name="md-phone-portrait"></ion-icon>01 43 07 68 49
           </div>
           <div class="adresse">
             <ion-icon name="mail"></ion-icon>mail.resto@adresse.com
@@ -88,7 +103,9 @@
       </div>
       <div class="baspage2">
         <div class="scroll-top">
-          <a href="#top"><ion-icon name="ios-arrow-up" style="color: white;padding-top: 1vw; font-size: 1.5vw"></ion-icon></a>
+          <a href="#top">
+            <ion-icon name="ios-arrow-up" style="color: white;padding-top: 1vw; font-size: 1.5vw"></ion-icon>
+          </a>
         </div>
         <div class="crédits">© 2018 LE TOUAREG<small class="small">Tous droits réservés</small></div>
         <div class="reseauxsociaux">

@@ -1,0 +1,44 @@
+page-paiement {
+    @import '../../assets/style/styles.scss';
+
+    .alignment {
+        width: 90%;
+        text-align: center;
+        margin: 4vw auto;
+    }
+
+    .paiement{
+        font-size: 2.5vw;
+        border-left: 5px solid rgb(209,124,73);
+        padding-left: 1vw;
+        color: rgb(83,33,13);
+        font-family: "GothamBold";
+        margin-top: 2vw;
+        margin-left: 1vw;
+        text-align: left;
+    }
+    .contacter{
+        width: 60%;
+        margin: auto;
+        height: 20vw;
+    }
+    .item-input .label-md{
+        color: grey;
+    }
+    .list-md .item-block .item-inner{
+        border-bottom: 1px solid grey;
+    }    
+    .list-md{
+        width: 60%;
+        margin: 2vw auto 0 auto;
+    }
+    page-paiement .list-md .item-block .item-inner{
+        color: black;
+    }
+
+    .validate-button {
+        margin-top: 15px;
+        width: 100%;
+        background-color: rgb(209,124,73);
+    }
+}

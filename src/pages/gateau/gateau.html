@@ -6,7 +6,7 @@
         <a style="cursor: pointer; font-size: 4vw;" (click)="redirectionHome()">Le Touareg</a>
         <div class="nav">
           <ul class="menu">
-            <li class="commandez"><a href="" id="souligner">Commandez<span class="deroule"></span></a>
+            <li class="commandez"><a id="souligner">Commandez<span class="deroule"></span></a>
               <ul class="submenu">
                 <li class="sousmenu" style="cursor: pointer;" (click)="redirectionPlats()">Plats</li>
                 <li class="sousmenu" style="cursor: pointer;" (click)="redirectionGateau()">Gateaux</li>
@@ -40,10 +40,11 @@
             <div class="illustration"><img [src]="gateau.image" /></div>
             <div class="titregateau">{{ gateau.title }}</div>
             <div class="ingredients">{{ gateau.ingredients }}</div>
-            <div class="prix">{{ gateau.price }}</div>
+            <div class="prix">{{ gateau.euro }}<span>€{{ gateau.centime }}</span></div>
             <span class="tooltip">
               <div class="titretool">{{ gateau.titleTool }}</div>
               <div class="ingredienttool">{{ gateau.ingredientTool }}</div>
+              <p class="pricetool">{{ gateau.euro }}<span class="textTop">€{{ gateau.centime }}</span></p>
               <button ion-button (click)="addCart(gateau.title, gateau.price, gateau.image)" class="toolButton">Sélectionner</button>
               <div class="ico">
                 <img src='assets/imgs/fb.jpg'/>
