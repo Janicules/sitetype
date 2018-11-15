@@ -25,7 +25,7 @@ import { ToastProvider } from '../providers/toast/toast';
 import { ConfirmerPage } from '../pages/confirmer/confirmer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { RedirectionProvider } from '../providers/redirection/redirection';
-import {NgxPaginationModule, PaginatePipe, PaginationControlsDirective} from 'ngx-pagination';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
