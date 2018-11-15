@@ -6,7 +6,8 @@ import { PlatPage } from './../plat/plat';
 import { ContacteznousPage } from './../contacteznous/contacteznous';
 import { ComptePage } from './../compte/compte';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { SMS } from '@ionic-native/sms';
 
 /**
  * Generated class for the AdminPage page.
@@ -26,7 +27,8 @@ export class AdminPage {
   commands: any = [];
   totalCommands: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider,
+    private alertCtrl: AlertController, private sms: SMS) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
   }
 
@@ -55,6 +57,36 @@ export class AdminPage {
 
   filter(category, event) {
 
+  }
+
+  sendSMS(phone) {
+    const prompt = this.alertCtrl.create({
+      title: 'Envoyer un SMS',
+      message: "Saisissez le message à envoyer à l'utilisateur",
+      inputs: [
+        {
+          name: 'message',
+          placeholder: 'Saisissez votre message...'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Annuler',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Envoyer',
+          handler: data => {
+            if (data.name) {
+              this.sms.send(phone, data.name);
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
 
   //Redirect the user to other pages
