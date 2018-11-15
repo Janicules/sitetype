@@ -13,6 +13,7 @@ import { PlatPage } from '../plat/plat';
 import { PanierPage } from '../panier/panier';
 import { ApiServiceProvider } from '../../providers/api-service/api-service';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Device } from '@ionic-native/device';
 
 /**
  * Generated class for the ConfirmerPage page.
@@ -46,7 +47,7 @@ export class ConfirmerPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private appService: AppServiceProvider,
     private toastService: ToastProvider, private apiService: ApiServiceProvider, private commandeService: CommandeProvider,
-    private inAB: InAppBrowser, private platform: Platform) {
+    private inAB: InAppBrowser, private platform: Platform, private device: Device) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
     this.panier = this.navParams.get('panier');
     this.total = this.navParams.get('total');
@@ -124,7 +125,7 @@ export class ConfirmerPage {
           total = tmpTotal[0];
 
         this.apiService.get("payment.php", '?price=' + total + "&card=" + this.panier + "&custom=" + 
-        this.mail + ",;." + this.address + ",;." + this.city + ",;." + this.zipCode + ",;." + this.choix)
+        this.mail + ",;." + this.address + ",;." + this.city + ",;." + this.zipCode + ",;." + this.choix + ",;." + this.device.platform)
           .then(
             response => {
               data = response;
@@ -166,7 +167,7 @@ export class ConfirmerPage {
         let data: any;
         this.apiService.get("insertCommand.php", "?user=" + this.mail + "&choice=" + this.choix +
           "&total=" + this.total + "&card=" + this.panier + "&method=" + this.payment +
-          "&address=" + this.address + "&city=" + this.city + "&zipCode=" + this.zipCode)
+          "&address=" + this.address + "&city=" + this.city + "&zipCode=" + this.zipCode + "&platform=" + this.device.platform)
           .then(
             response => {
               data = response;

@@ -26,6 +26,7 @@ import { ConfirmerPage } from '../pages/confirmer/confirmer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { RedirectionProvider } from '../providers/redirection/redirection';
 import {NgxPaginationModule, PaginatePipe, PaginationControlsDirective} from 'ngx-pagination';
+import { Device } from '@ionic-native/device';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import {NgxPaginationModule, PaginatePipe, PaginationControlsDirective} from 'ng
     CommandeProvider,
     ToastProvider,
     InAppBrowser,
-    RedirectionProvider
+    RedirectionProvider,
+    Device,
   ]
 })
 export class AppModule { }
