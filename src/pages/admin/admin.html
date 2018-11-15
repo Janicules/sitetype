@@ -43,7 +43,7 @@
         <p class="title-table">Commandes passées</p>
 
         <div class="command-filter">
-          <input type="text" placeholder="Filtrer par client" [(ngModel)]="userFilter" (keypress)="filter('user', $event)">
+          <input type="text" placeholder="Filtrer par client" (input)="filter('user', $event)">
         </div>
         <table>
           <thead>
@@ -56,10 +56,11 @@
               <th>Ville</th>
               <th>Code postal</th>
               <th>N° de commande</th>
+              <th>Envoyer un message</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let command of commands | paginate: { itemsPerPage: 10, currentPage: p }">
+            <tr *ngFor="let command of commands | paginate: {id: 'command', itemsPerPage: 10, currentPage: pCommand}">
               <td>{{ command.user }}</td>
               <td>{{ command.product }}</td>
               <td>{{ command.quantity }}</td>
@@ -68,11 +69,12 @@
               <td>{{ command.city }}</td>
               <td>{{ command.zipCode }}</td>
               <td>{{ command.num_command }}</td>
+              <td (click)="sendSMS(command.phone)"><ion-icon name="ios-mail"></ion-icon></td>
             </tr>
           </tbody>
         </table>
         <div class="pagination">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <pagination-controls id='command' (pageChange)="pCommand = $event"></pagination-controls>
           <p>Total de commandes : <strong>{{ totalCommands }}</strong></p>
         </div>
       </div>
@@ -81,13 +83,13 @@
         <p class="title-table">Paiement des commandes passées</p>
 
         <div class="payment-filter">
-          <ion-select interface="popover" placeholder="Filtrer par méthode de paiement / date de commande" [(ngModel)]="category">
-            <ion-option>---------</ion-option>
-            <ion-option>Méthode de paiement</ion-option>
-            <ion-option>Date de commande</ion-option>
-          </ion-select>
+          <select interface="popover" placeholder="Filtrer par méthode de paiement / date de commande" [(ngModel)]="category" (change)="filter('payment', inputPayment)">
+            <option value="none" selected>-------------------</option>
+            <option value="paymentMethod">Méthode de paiement</option>
+            <option value="date">Date de commande</option>
+          </select>
 
-          <input type="text" placeholder="Filtrer par client" [(ngModel)]="userFilter" (keypress)="filter('user', $event)">
+          <input type="text" placeholder="Filtrer par client" [(ngModel)]="inputPayment" (input)="filter('payment', $event)">
         </div>
         <table>
           <thead>
@@ -100,23 +102,62 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let command of commands | paginate: { itemsPerPage: 10, currentPage: p }">
-              <td>{{ command.user }}</td>
-              <td>{{ command.product }}</td>
-              <td>{{ command.quantity }}</td>
-              <td>{{ command.unityPrice }}</td>
-              <td>{{ command.choice }}</td>
-              <td>{{ command.city }}</td>
-              <td>{{ command.zipCode }}</td>
-              <td>{{ command.num_command }}</td>
+            <tr *ngFor="let payment of payments | paginate: { id: 'payment', itemsPerPage: 10, currentPage: p }">
+              <td>{{ payment.user }}</td>
+              <td>{{ payment.totalPrice }}</td>
+              <td>{{ payment.paymentMethod }}</td>
+              <td>{{ payment.date }}</td>
+              <td>{{ payment.num_command }}</td>
             </tr>
           </tbody>
         </table>
         <div class="pagination">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-          <p>Total de commandes : <strong>{{ totalCommands }}</strong></p>
+          <pagination-controls id="payment" (pageChange)="p = $event"></pagination-controls>
+          <p>Total de paiements : <strong>{{ totalPayments }}</strong></p>
         </div>
       </div>
+
+      <div class="stat-table">
+          <p class="title-table">Statistique des commandes</p>
+  
+          <div class="stats-filter">
+            <select interface="popover" [(ngModel)]="categoryStats">
+              <option value="mensuel">Mensuel</option>
+              <option value="hebdomadaire">Hebdomadaire</option>
+              <option value="journalier">Journalier</option>
+            </select>
+  
+            <ion-datetime *ngIf="categoryStats != 'journalier'" displayFormat="YYYY-MM-DD" [(ngModel)]="date"
+                    placeholder="{{date}}"></ion-datetime>
+            <input type="text" *ngIf="categoryStats == 'journalier'" [(ngModel)]="date">
+
+
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Utilisateur</th>
+                <th>Prix total</th>
+                <th>Méthode de paiement</th>
+                <th>Date</th>
+                <th>N° de commande</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let payment of payments | paginate: { id: 'payment', itemsPerPage: 10, currentPage: p }">
+                <td>{{ payment.user }}</td>
+                <td>{{ payment.totalPrice }}</td>
+                <td>{{ payment.paymentMethod }}</td>
+                <td>{{ payment.date }}</td>
+                <td>{{ payment.num_command }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <pagination-controls id="payment" (pageChange)="p = $event"></pagination-controls>
+            <p>Total de paiements : <strong>{{ totalPayments }}</strong></p>
+          </div>
+        </div>
     </div>
 
     <footer>
