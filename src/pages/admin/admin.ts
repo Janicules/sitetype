@@ -8,7 +8,6 @@ import { ContacteznousPage } from './../contacteznous/contacteznous';
 import { ComptePage } from './../compte/compte';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { SMS } from '@ionic-native/sms';
 
 /**
  * Generated class for the AdminPage page.
@@ -27,6 +26,7 @@ export class AdminPage {
   choix: string;
   commands: any = [];
   totalCommands: number = 0;
+  storePhones: any = [];
 
   payments: any = [];
   totalPayments: number = 0;
@@ -38,7 +38,7 @@ export class AdminPage {
   date: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider,
-    private toastService: ToastProvider, private alertCtrl: AlertController, private sms: SMS) {
+    private toastService: ToastProvider, private alertCtrl: AlertController) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
   }
 
@@ -132,7 +132,19 @@ export class AdminPage {
     }
   }
 
-  sendSMS(phone) {
+  insertInTable(event, command, i) {
+    if (event.value == true) 
+      this.storePhones.push({id: i, number: command.phone});
+    else {
+        const id = this.storePhones.findIndex(function(element) {
+          return element.number == command.phone;
+        });
+  
+        this.storePhones.splice(id, 1);
+    }
+  }
+
+  sendSMS() {
     const prompt = this.alertCtrl.create({
       title: 'Envoyer un SMS',
       message: "Saisissez le message à envoyer à l'utilisateur",
@@ -146,14 +158,41 @@ export class AdminPage {
         {
           text: 'Annuler',
           handler: data => {
-            console.log('Cancel clicked');
+            this.toastService.presentToast("Annulation de l'envoie du message");            
           }
         },
         {
           text: 'Envoyer',
           handler: data => {
-            if (data.name) {
-              this.sms.send(phone, data.name);
+            if (data.message && this.storePhones.length > 0) {
+              let phone: any = [];
+              this.storePhones.forEach(phones => {
+                phone.push(phones.number);
+              });
+
+              phone = JSON.stringify(phone);
+              this.apiService.get('sendSMS.php', '?phone=' + phone + "&text=" + data.message)
+                .then(
+                  res => {
+                    let data;
+                    data = res;
+                    if (data == "error") {
+                      this.toastService.presentToast("Une erreur est survenue lors de l'envoie du message");
+                    }
+                    else if(data == "sent"){
+                      this.toastService.presentToast("Le message a été remis avec succès");
+                    }
+                    else {
+                      this.toastService.presentToast("Le message a été remis avec succès");
+                    }
+                  }
+                )
+                .catch(
+                  () => console.log("Une erreur est survenue lors de l'envoie du message")
+                )
+            }
+            else {
+              this.toastService.presentToast("Veuillez saisir un message à envoyer");
             }
           }
         }

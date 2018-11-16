@@ -29,9 +29,13 @@ page-admin {
         }
         
         .command-table table thead th, table tbody td {
-            width: 12.5%;
+            width: 10.5%;
             padding: 8px;
             border: solid 1px black;
+        }
+
+        .command-table .item-md {
+            padding-left: 35%;
         }
 
         .pagination {
@@ -58,6 +62,13 @@ page-admin {
             table thead th, table tbody td {
                 padding: 8px;
                 border: solid 1px black;
+            }
+        }
+
+        .stat-table {
+
+            .item-md {
+                color: black;
             }
         }
     }

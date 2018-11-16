@@ -48,6 +48,7 @@
         <table>
           <thead>
             <tr>
+              <th></th>
               <th>Utilisateur</th>
               <th>Produit</th>
               <th>Quantité</th>
@@ -56,11 +57,15 @@
               <th>Ville</th>
               <th>Code postal</th>
               <th>N° de commande</th>
-              <th>Envoyer un message</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let command of commands | paginate: {id: 'command', itemsPerPage: 10, currentPage: pCommand}">
+            <tr *ngFor="let command of commands | paginate: {id: 'command', itemsPerPage: 10, currentPage: pCommand}; let i = index;">
+              <td style="text-align: center;">
+                <ion-item>
+                  <ion-checkbox (ionChange)="insertInTable($event, command, i)"></ion-checkbox>
+                </ion-item>
+              </td>
               <td>{{ command.user }}</td>
               <td>{{ command.product }}</td>
               <td>{{ command.quantity }}</td>
@@ -69,13 +74,13 @@
               <td>{{ command.city }}</td>
               <td>{{ command.zipCode }}</td>
               <td>{{ command.num_command }}</td>
-              <td (click)="sendSMS(command.phone)"><ion-icon name="ios-mail"></ion-icon></td>
             </tr>
           </tbody>
         </table>
         <div class="pagination">
           <pagination-controls id='command' (pageChange)="pCommand = $event"></pagination-controls>
           <p>Total de commandes : <strong>{{ totalCommands }}</strong></p>
+          <button ion-button *ngIf="storePhones.length > 0" (click)="sendSMS()">Envoyer</button>
         </div>
       </div>
 
@@ -83,7 +88,8 @@
         <p class="title-table">Paiement des commandes passées</p>
 
         <div class="payment-filter">
-          <select interface="popover" placeholder="Filtrer par méthode de paiement / date de commande" [(ngModel)]="category" (change)="filter('payment', inputPayment)">
+          <select interface="popover" placeholder="Filtrer par méthode de paiement / date de commande" [(ngModel)]="category"
+            (change)="filter('payment', inputPayment)">
             <option value="none" selected>-------------------</option>
             <option value="paymentMethod">Méthode de paiement</option>
             <option value="date">Date de commande</option>
@@ -118,46 +124,49 @@
       </div>
 
       <div class="stat-table">
-          <p class="title-table">Statistique des commandes</p>
-  
-          <div class="stats-filter">
-            <select interface="popover" [(ngModel)]="categoryStats">
-              <option value="mensuel">Mensuel</option>
-              <option value="hebdomadaire">Hebdomadaire</option>
-              <option value="journalier">Journalier</option>
-            </select>
-  
-            <ion-datetime *ngIf="categoryStats != 'journalier'" displayFormat="YYYY-MM-DD" [(ngModel)]="date"
-                    placeholder="{{date}}"></ion-datetime>
-            <input type="text" *ngIf="categoryStats == 'journalier'" [(ngModel)]="date">
+        <p class="title-table">Statistique des commandes</p>
 
+        <div class="stats-filter">
+          <select interface="popover" [(ngModel)]="categoryStats">
+            <option value="mensuel">Mensuel</option>
+            <option value="hebdomadaire">Hebdomadaire</option>
+            <option value="journalier">Journalier</option>
+          </select>
 
-          </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Utilisateur</th>
-                <th>Prix total</th>
-                <th>Méthode de paiement</th>
-                <th>Date</th>
-                <th>N° de commande</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let payment of payments | paginate: { id: 'payment', itemsPerPage: 10, currentPage: p }">
-                <td>{{ payment.user }}</td>
-                <td>{{ payment.totalPrice }}</td>
-                <td>{{ payment.paymentMethod }}</td>
-                <td>{{ payment.date }}</td>
-                <td>{{ payment.num_command }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="pagination">
-            <pagination-controls id="payment" (pageChange)="p = $event"></pagination-controls>
-            <p>Total de paiements : <strong>{{ totalPayments }}</strong></p>
-          </div>
+          <ion-item *ngIf="categoryStats != 'journalier'">
+            <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="date" placeholder="{{date}}"></ion-datetime>
+          </ion-item>
+
+          <ion-item *ngIf="categoryStats == 'journalier'">
+            <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="date" placeholder="{{date}}"></ion-datetime>
+          </ion-item>
+
         </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Utilisateur</th>
+              <th>Prix total</th>
+              <th>Méthode de paiement</th>
+              <th>Date</th>
+              <th>N° de commande</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let payment of payments | paginate: { id: 'payment', itemsPerPage: 10, currentPage: p }">
+              <td>{{ payment.user }}</td>
+              <td>{{ payment.totalPrice }}</td>
+              <td>{{ payment.paymentMethod }}</td>
+              <td>{{ payment.date }}</td>
+              <td>{{ payment.num_command }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <pagination-controls id="payment" (pageChange)="p = $event"></pagination-controls>
+          <p>Total de paiements : <strong>{{ totalPayments }}</strong></p>
+        </div>
+      </div>
     </div>
 
     <footer>
