@@ -26,7 +26,6 @@ import { ConfirmerPage } from '../pages/confirmer/confirmer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { RedirectionProvider } from '../providers/redirection/redirection';
 import {NgxPaginationModule, PaginatePipe, PaginationControlsDirective} from 'ngx-pagination';
-import { SMS } from '@ionic-native/sms';
 
 @NgModule({
   declarations: [
@@ -74,8 +73,7 @@ import { SMS } from '@ionic-native/sms';
     CommandeProvider,
     ToastProvider,
     InAppBrowser,
-    RedirectionProvider,
-    SMS
+    RedirectionProvider
   ]
 })
 export class AppModule { }

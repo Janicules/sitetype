@@ -123,8 +123,8 @@ export class ConfirmerPage {
         else
           total = tmpTotal[0];
 
-        this.apiService.get("payment.php", '?price=' + total + "&card=" + this.panier + "&custom=" + 
-        this.mail + ",;." + this.address + ",;." + this.city + ",;." + this.zipCode + ",;." + this.choix)
+        this.apiService.get("payment.php", '?price=' + total + "&card=" + this.panier + "&custom=" +
+          this.mail + ",;." + this.address + ",;." + this.city + ",;." + this.zipCode + ",;." + this.choix)
           .then(
             response => {
               data = response;
@@ -161,11 +161,18 @@ export class ConfirmerPage {
         this.navCtrl.setRoot(PaiementPage, { choix: this.choix, total: this.total, panier: this.panier });
       }
       else {
+        let total;
+        let tmpTotal = this.total.toString().split("€");
+        if (tmpTotal.length == 2)
+          total = tmpTotal[0] + "." + tmpTotal[1];
+        else
+          total = tmpTotal[0];
+
         this.panier = JSON.stringify(this.panier);
 
         let data: any;
         this.apiService.get("insertCommand.php", "?user=" + this.mail + "&choice=" + this.choix +
-          "&total=" + this.total + "&card=" + this.panier + "&method=" + this.payment +
+          "&total=" + total + "&card=" + this.panier + "&method=" + this.payment +
           "&address=" + this.address + "&city=" + this.city + "&zipCode=" + this.zipCode)
           .then(
             response => {

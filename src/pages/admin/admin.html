@@ -129,43 +129,35 @@
         <div class="stats-filter">
           <select interface="popover" [(ngModel)]="categoryStats">
             <option value="mensuel">Mensuel</option>
-            <option value="hebdomadaire">Hebdomadaire</option>
+            <option value="hebdomadaire">Hebdomadaire (date +7 jours)</option>
             <option value="journalier">Journalier</option>
           </select>
 
-          <ion-item *ngIf="categoryStats != 'journalier'">
-            <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="date" placeholder="{{date}}"></ion-datetime>
-          </ion-item>
+          <div class="display-filters">
+              <select interface="popover" [(ngModel)]="month" *ngIf="categoryStats == 'mensuel'">
+                  <option value="january">Janvier</option>
+                  <option value="february">Février</option>
+                  <option value="march">Mars</option>
+                  <option value="april">Avril</option>
+                  <option value="may">Mai</option>
+                  <option value="june">Juin</option>
+                  <option value="july">Juillet</option>
+                  <option value="august">Août</option>
+                  <option value="september">Septembre</option>
+                  <option value="october">Octobre</option>
+                  <option value="november">Novembre</option>
+                  <option value="december">Décembre</option>
+                </select>
+      
+                <ion-item *ngIf="categoryStats != 'mensuel'">
+                  <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="date" placeholder="{{date}}"></ion-datetime>
+                </ion-item>
 
-          <ion-item *ngIf="categoryStats == 'journalier'">
-            <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="date" placeholder="{{date}}"></ion-datetime>
-          </ion-item>
+                <button ion-button (click)="searchStats()">Raffraichir les statistiques</button>
+          </div>
+        </div>
 
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Utilisateur</th>
-              <th>Prix total</th>
-              <th>Méthode de paiement</th>
-              <th>Date</th>
-              <th>N° de commande</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let payment of payments | paginate: { id: 'payment', itemsPerPage: 10, currentPage: p }">
-              <td>{{ payment.user }}</td>
-              <td>{{ payment.totalPrice }}</td>
-              <td>{{ payment.paymentMethod }}</td>
-              <td>{{ payment.date }}</td>
-              <td>{{ payment.num_command }}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="pagination">
-          <pagination-controls id="payment" (pageChange)="p = $event"></pagination-controls>
-          <p>Total de paiements : <strong>{{ totalPayments }}</strong></p>
-        </div>
+        <canvas #lineCanvas></canvas>
       </div>
     </div>
 

@@ -70,6 +70,11 @@ page-admin {
             .item-md {
                 color: black;
             }
+
+            .display-filters {
+                display: flex;
+                align-items: center;
+            }
         }
     }
 }

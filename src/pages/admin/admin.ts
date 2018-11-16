@@ -6,8 +6,9 @@ import { GateauPage } from './../gateau/gateau';
 import { PlatPage } from './../plat/plat';
 import { ContacteznousPage } from './../contacteznous/contacteznous';
 import { ComptePage } from './../compte/compte';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Chart } from 'chart.js';
 
 /**
  * Generated class for the AdminPage page.
@@ -23,6 +24,9 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class AdminPage {
 
+  @ViewChild('lineCanvas') lineCanvas;
+  lineChart: any;
+
   choix: string;
   commands: any = [];
   totalCommands: number = 0;
@@ -34,8 +38,10 @@ export class AdminPage {
   inputPayment: string = "";
 
   categoryStats: string = 'mensuel';
+  month: string = "january";
   today = new Date();
   date: string;
+  labels: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider,
     private toastService: ToastProvider, private alertCtrl: AlertController) {
@@ -59,6 +65,39 @@ export class AdminPage {
     }
 
     this.date = yyyy + '-' + mm + '-' + dd;
+
+    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+ 
+      type: 'line',
+      data: {
+          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          datasets: [
+              {
+                  label: "My First dataset",
+                  fill: false,
+                  lineTension: 0.1,
+                  backgroundColor: "rgba(75,192,192,0.4)",
+                  borderColor: "rgba(75,192,192,1)",
+                  borderCapStyle: 'butt',
+                  borderDash: [],
+                  borderDashOffset: 0.0,
+                  borderJoinStyle: 'miter',
+                  pointBorderColor: "rgba(75,192,192,1)",
+                  pointBackgroundColor: "#fff",
+                  pointBorderWidth: 1,
+                  pointHoverRadius: 5,
+                  pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                  pointHoverBorderColor: "rgba(220,220,220,1)",
+                  pointHoverBorderWidth: 2,
+                  pointRadius: 1,
+                  pointHitRadius: 10,
+                  data: [65, 59, 80, 81, 56, 55, 40],
+                  spanGaps: false,
+              }
+          ]
+      }
+
+  });
   }
 
   //Function to get commands :
@@ -201,6 +240,19 @@ export class AdminPage {
     prompt.present();
   }
 
+  searchStats() {
+    if (this.categoryStats == "mensuel") {
+      for (let i = 1; i <= 31; i++)
+        this.labels.push(i);
+
+      this.apiService.get('getStats.php', '?period=month&value=' + this.month)
+        .then(
+          res => {
+            let data = res;
+          }
+        )
+    }
+  }
   //Redirect the user to other pages
   redirectionMonCompte() {
     this.navCtrl.setRoot(ComptePage, { choix: this.choix });
