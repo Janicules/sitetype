@@ -1,7 +1,7 @@
 import { AdminPage } from './../admin/admin';
 import { RedirectionProvider } from './../../providers/redirection/redirection';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Events } from 'ionic-angular';
 import { ComptePage } from '../compte/compte';
 import { ContacteznousPage } from '../contacteznous/contacteznous';
 import { PlatPage } from '../plat/plat';
@@ -17,7 +17,7 @@ export class HomePage {
   choix: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
-    private redirectionService: RedirectionProvider) {
+    private redirectionService: RedirectionProvider, private events: Events) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
     
     if (location.search != "" && !this.redirectionService.redirected) {
@@ -26,7 +26,7 @@ export class HomePage {
       for (let i = 0; i < params.length; i++) {
         if (params[i] == "success") {
           this.redirectionService.redirected = true;
-          this.presentToast('Paiement avec PayPal réalisé, la commande a été ajoutée avec succès');
+          this.presentToast('Paiement avec PayPal réalisé, la commande a été envoyé');
           return;
         }
         else if (params[i] == "cancel") {

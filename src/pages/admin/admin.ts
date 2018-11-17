@@ -7,7 +7,7 @@ import { PlatPage } from './../plat/plat';
 import { ContacteznousPage } from './../contacteznous/contacteznous';
 import { ComptePage } from './../compte/compte';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { Chart } from 'chart.js';
 
 /**
@@ -17,7 +17,6 @@ import { Chart } from 'chart.js';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-admin',
   templateUrl: 'admin.html',
@@ -27,10 +26,15 @@ export class AdminPage {
   @ViewChild('lineCanvas') lineCanvas;
   lineChart: any;
 
+  interval: any;
+  audio: any;
+  displayAudio: boolean = false;
+
   choix: string;
   commands: any = [];
   totalCommands: number = 0;
   storePhones: any = [];
+  oldLength: number;
 
   payments: any = [];
   totalPayments: number = 0;
@@ -46,13 +50,15 @@ export class AdminPage {
   data: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider,
-    private toastService: ToastProvider, private alertCtrl: AlertController) {
+    private toastService: ToastProvider, private alertCtrl: AlertController, public events: Events) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
   }
 
   ionViewWillEnter() {
     this.getCommands();
     this.getPayments();
+
+    this.oldLength = this.totalCommands;
 
     let dd: any = this.today.getDate();
     let mm: any = this.today.getMonth() + 1; //January is 0!
@@ -67,6 +73,29 @@ export class AdminPage {
     }
 
     this.date = yyyy + '-' + mm + '-' + dd;
+
+    this.interval = setInterval(
+      () => {
+        this.getCommands();
+        if (this.totalCommands != this.oldLength && this.oldLength > 0) {
+          this.audio = new Audio('assets/audio/circuit.mp3');
+          this.audio.play();
+          this.displayAudio = true;
+        }
+
+        this.oldLength = this.totalCommands;
+      }, 5000
+    );
+  }
+
+  ionViewWillLeave(){
+    clearInterval(this.interval);
+  }
+
+  cutSong(){
+    this.audio.pause();
+    this.audio.currentTime = 0;
+    this.displayAudio = false;
   }
 
   //Update the chart
@@ -286,12 +315,12 @@ export class AdminPage {
               const nbDays = new Date(parseInt(this.date.substring(0, 3)), parseInt(this.date.substring(5, 7)), 0).getDate();
 
               for (let i = day; i < day + 7; i++) {
-                if (i > nbDays && dayReset == false) {
+                if (i > nbDays && dayReset == false) {
                   dayReset = true;
                   reset = 0;
                 }
 
-                if (dayReset == false) {
+                if (dayReset == false) {
                   this.labels.push(day + count);
                   count++;
                 }

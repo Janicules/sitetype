@@ -38,6 +38,10 @@
       </div>
     </header>
 
+    <button ion-button *ngIf="displayAudio" style="position: absolute; left: 0; background-color: rgb(209,124,73)" (click)="cutSong()">
+      Couper la sonnerie
+    </button>
+
     <div class="container-table">
       <div class="command-table">
         <p class="title-table">Commandes passées</p>
