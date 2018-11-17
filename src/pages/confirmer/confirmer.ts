@@ -7,7 +7,6 @@ import { GateauPage } from './../gateau/gateau';
 import { ComptePage } from './../compte/compte';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
-import { CreationcomptePage } from '../creationcompte/creationcompte';
 import { ContacteznousPage } from '../contacteznous/contacteznous';
 import { PlatPage } from '../plat/plat';
 import { PanierPage } from '../panier/panier';

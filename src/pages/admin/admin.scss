@@ -15,6 +15,14 @@ page-admin {
             margin: 0px 0px 2vh 0px;
         }
 
+        .last-table {
+            table thead th, table tbody td {
+                width: 12.5%;
+                padding: 8px;
+                border: solid 1px black;
+            }
+        }
+
         .command-filter {
             margin-bottom: 20px;
 
@@ -28,10 +36,14 @@ page-admin {
             width: 100%;
         }
         
-        .command-table table thead th, table tbody td {
-            width: 10.5%;
-            padding: 8px;
-            border: solid 1px black;
+        .command-table {
+            margin-top: 50px;
+
+            table thead th, table tbody td {
+                width: 10.5%;
+                padding: 8px;
+                border: solid 1px black;
+            }
         }
 
         .command-table .item-md {

@@ -9,6 +9,7 @@ import { ComptePage } from './../compte/compte';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { Chart } from 'chart.js';
+import { PrintProvider} from "../../providers/print/print";
 
 /**
  * Generated class for the AdminPage page.
@@ -31,6 +32,10 @@ export class AdminPage {
   displayAudio: boolean = false;
 
   choix: string;
+
+  last: any = [];
+  firstEntry: boolean = true;
+
   commands: any = [];
   totalCommands: number = 0;
   storePhones: any = [];
@@ -50,13 +55,15 @@ export class AdminPage {
   data: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider,
-    private toastService: ToastProvider, private alertCtrl: AlertController, public events: Events) {
+    private toastService: ToastProvider, private alertCtrl: AlertController, public events: Events,
+    private printService: PrintProvider) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
   }
 
   ionViewWillEnter() {
     this.getCommands();
     this.getPayments();
+    this.getLastCommand();
 
     this.oldLength = this.totalCommands;
 
@@ -78,6 +85,7 @@ export class AdminPage {
       () => {
         this.getCommands();
         if (this.totalCommands != this.oldLength && this.oldLength > 0) {
+          this.getLastCommand();
           this.audio = new Audio('assets/audio/circuit.mp3');
           this.audio.play();
           this.displayAudio = true;
@@ -133,6 +141,28 @@ export class AdminPage {
 
     });
   }
+
+  //Function to get the last command :
+  getLastCommand() {
+    this.apiService.get("getLastCommand.php", '')
+      .then(
+        response => {
+          let data: any = response;
+
+          this.last = data.json();
+
+          if (this.firstEntry)
+            this.firstEntry = false;
+          else 
+            this.printService.print('printIt');
+
+        }
+      )
+      .catch(
+        error => console.log("error get last command")
+      )
+  }
+
   //Function to get commands :
   getCommands(user?: string) {
     if (!user)

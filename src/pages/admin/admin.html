@@ -43,7 +43,38 @@
     </button>
 
     <div class="container-table">
-      <div class="command-table">
+      <div *ngIf="last.length > 0" class="last-table">
+        <p class="title-table">Dernière commande</p>
+
+        <table id="printIt">
+            <thead>
+              <tr>
+                <th>Utilisateur</th>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Consommation</th>
+                <th>Ville</th>
+                <th>Code postal</th>
+                <th>N° de commande</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ls of last;">
+                <td>{{ ls.user }}</td>
+                <td>{{ ls.product }}</td>
+                <td>{{ ls.quantity }}</td>
+                <td>{{ ls.unityPrice }}</td>
+                <td>{{ ls.choice }}</td>
+                <td>{{ ls.city }}</td>
+                <td>{{ ls.zipCode }}</td>
+                <td>{{ ls.num_command }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+
+      <div *ngIf="commands.length > 0" class="command-table">
         <p class="title-table">Commandes passées</p>
 
         <div class="command-filter">
@@ -88,7 +119,7 @@
         </div>
       </div>
 
-      <div class="payment-table">
+      <div *ngIf="payments.length > 0" class="payment-table">
         <p class="title-table">Paiement des commandes passées</p>
 
         <div class="payment-filter">
@@ -127,7 +158,7 @@
         </div>
       </div>
 
-      <div class="stat-table">
+      <div *ngIf="payments.length > 0" class="stat-table">
         <p class="title-table">Statistique des commandes</p>
 
         <div class="stats-filter">

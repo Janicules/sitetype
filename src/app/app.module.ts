@@ -27,6 +27,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { RedirectionProvider } from '../providers/redirection/redirection';
 import {NgxPaginationModule, PaginatePipe, PaginationControlsDirective} from 'ngx-pagination';
 import { Device } from '@ionic-native/device';
+import { PrintProvider } from '../providers/print/print';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { Device } from '@ionic-native/device';
     InAppBrowser,
     RedirectionProvider,
     Device,
+    PrintProvider,
   ]
 })
 export class AppModule { }
