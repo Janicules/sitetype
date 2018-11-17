@@ -180,6 +180,9 @@ export class CreationcomptePage {
               this.appService.email = this.email;
               this.appService.connected = true;
 
+              if (window.localStorage.getItem('email'))
+                window.localStorage.removeItem('email');
+                
               this.navCtrl.push(HomePage);
             }
           }

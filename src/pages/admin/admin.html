@@ -38,16 +38,21 @@
       </div>
     </header>
 
+    <button ion-button *ngIf="displayAudio" style="position: absolute; left: 0; background-color: rgb(209,124,73)" (click)="cutSong()">
+      Couper la sonnerie
+    </button>
+
     <div class="container-table">
       <div class="command-table">
         <p class="title-table">Commandes passées</p>
 
         <div class="command-filter">
-          <input type="text" placeholder="Filtrer par client" [(ngModel)]="userFilter" (keypress)="filter('user', $event)">
+          <input type="text" placeholder="Filtrer par client" (input)="filter('user', $event)">
         </div>
         <table>
           <thead>
             <tr>
+              <th></th>
               <th>Utilisateur</th>
               <th>Produit</th>
               <th>Quantité</th>
@@ -59,7 +64,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let command of commands | paginate: { itemsPerPage: 10, currentPage: p }">
+            <tr *ngFor="let command of commands | paginate: {id: 'command', itemsPerPage: 10, currentPage: pCommand}; let i = index;">
+              <td style="text-align: center;">
+                <ion-item>
+                  <ion-checkbox (ionChange)="insertInTable($event, command, i)"></ion-checkbox>
+                </ion-item>
+              </td>
               <td>{{ command.user }}</td>
               <td>{{ command.product }}</td>
               <td>{{ command.quantity }}</td>
@@ -72,8 +82,9 @@
           </tbody>
         </table>
         <div class="pagination">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <pagination-controls id='command' (pageChange)="pCommand = $event"></pagination-controls>
           <p>Total de commandes : <strong>{{ totalCommands }}</strong></p>
+          <button ion-button *ngIf="storePhones.length > 0" (click)="sendSMS()">Envoyer</button>
         </div>
       </div>
 
@@ -81,13 +92,14 @@
         <p class="title-table">Paiement des commandes passées</p>
 
         <div class="payment-filter">
-          <ion-select interface="popover" placeholder="Filtrer par méthode de paiement / date de commande" [(ngModel)]="category">
-            <ion-option>---------</ion-option>
-            <ion-option>Méthode de paiement</ion-option>
-            <ion-option>Date de commande</ion-option>
-          </ion-select>
+          <select interface="popover" placeholder="Filtrer par méthode de paiement / date de commande" [(ngModel)]="category"
+            (change)="filter('payment', inputPayment)">
+            <option value="none" selected>-------------------</option>
+            <option value="paymentMethod">Méthode de paiement</option>
+            <option value="date">Date de commande</option>
+          </select>
 
-          <input type="text" placeholder="Filtrer par client" [(ngModel)]="userFilter" (keypress)="filter('user', $event)">
+          <input type="text" placeholder="Filtrer par client" [(ngModel)]="inputPayment" (input)="filter('payment', $event)">
         </div>
         <table>
           <thead>
@@ -100,22 +112,60 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let command of commands | paginate: { itemsPerPage: 10, currentPage: p }">
-              <td>{{ command.user }}</td>
-              <td>{{ command.product }}</td>
-              <td>{{ command.quantity }}</td>
-              <td>{{ command.unityPrice }}</td>
-              <td>{{ command.choice }}</td>
-              <td>{{ command.city }}</td>
-              <td>{{ command.zipCode }}</td>
-              <td>{{ command.num_command }}</td>
+            <tr *ngFor="let payment of payments | paginate: { id: 'payment', itemsPerPage: 10, currentPage: p }">
+              <td>{{ payment.user }}</td>
+              <td>{{ payment.totalPrice }}</td>
+              <td>{{ payment.paymentMethod }}</td>
+              <td>{{ payment.date }}</td>
+              <td>{{ payment.num_command }}</td>
             </tr>
           </tbody>
         </table>
         <div class="pagination">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-          <p>Total de commandes : <strong>{{ totalCommands }}</strong></p>
+          <pagination-controls id="payment" (pageChange)="p = $event"></pagination-controls>
+          <p>Total de paiements : <strong>{{ totalPayments }}</strong></p>
         </div>
+      </div>
+
+      <div class="stat-table">
+        <p class="title-table">Statistique des commandes</p>
+
+        <div class="stats-filter">
+          <select interface="popover" [(ngModel)]="categoryStats">
+            <option value="mensuel">Mensuel</option>
+            <option value="hebdomadaire">Hebdomadaire (date +7 jours)</option>
+            <option value="journalier">Journalier</option>
+          </select>
+
+          <div class="display-filters">
+            <div class="display-mensuel">
+                <select interface="popover" [(ngModel)]="month" *ngIf="categoryStats == 'mensuel'">
+                    <option value="january">Janvier</option>
+                    <option value="february">Février</option>
+                    <option value="march">Mars</option>
+                    <option value="april">Avril</option>
+                    <option value="may">Mai</option>
+                    <option value="june">Juin</option>
+                    <option value="july">Juillet</option>
+                    <option value="august">Août</option>
+                    <option value="september">Septembre</option>
+                    <option value="october">Octobre</option>
+                    <option value="november">Novembre</option>
+                    <option value="december">Décembre</option>
+                  </select>
+      
+                  <input *ngIf="categoryStats == 'mensuel'" [(ngModel)]="year" placeholder="YYYY"/>
+            </div>
+
+            <ion-item *ngIf="categoryStats != 'mensuel'">
+              <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="date" placeholder="{{date}}"></ion-datetime>
+            </ion-item>
+
+            <button ion-button (click)="searchStats()">Raffraichir les statistiques</button>
+          </div>
+        </div>
+
+        <canvas #lineCanvas></canvas>
       </div>
     </div>
 
