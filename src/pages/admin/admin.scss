@@ -67,14 +67,30 @@ page-admin {
 
         .stat-table {
 
-            .item-md {
-                color: black;
-            }
-
             .display-filters {
                 display: flex;
                 align-items: center;
+
+
+                .display-mensuel {
+                    width: 40%;
+
+                    select {
+                        width: 49%;
+                    }
+
+                    input {
+                        width: 49%;
+                    }
+                }
+
+                .item-md {
+                    color: black;
+                    width: 40%;
+                }
             }
+
+            
         }
     }
 }

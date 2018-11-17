@@ -134,26 +134,30 @@
           </select>
 
           <div class="display-filters">
-              <select interface="popover" [(ngModel)]="month" *ngIf="categoryStats == 'mensuel'">
-                  <option value="january">Janvier</option>
-                  <option value="february">Février</option>
-                  <option value="march">Mars</option>
-                  <option value="april">Avril</option>
-                  <option value="may">Mai</option>
-                  <option value="june">Juin</option>
-                  <option value="july">Juillet</option>
-                  <option value="august">Août</option>
-                  <option value="september">Septembre</option>
-                  <option value="october">Octobre</option>
-                  <option value="november">Novembre</option>
-                  <option value="december">Décembre</option>
-                </select>
+            <div class="display-mensuel">
+                <select interface="popover" [(ngModel)]="month" *ngIf="categoryStats == 'mensuel'">
+                    <option value="january">Janvier</option>
+                    <option value="february">Février</option>
+                    <option value="march">Mars</option>
+                    <option value="april">Avril</option>
+                    <option value="may">Mai</option>
+                    <option value="june">Juin</option>
+                    <option value="july">Juillet</option>
+                    <option value="august">Août</option>
+                    <option value="september">Septembre</option>
+                    <option value="october">Octobre</option>
+                    <option value="november">Novembre</option>
+                    <option value="december">Décembre</option>
+                  </select>
       
-                <ion-item *ngIf="categoryStats != 'mensuel'">
-                  <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="date" placeholder="{{date}}"></ion-datetime>
-                </ion-item>
+                  <input *ngIf="categoryStats == 'mensuel'" [(ngModel)]="year" placeholder="YYYY"/>
+            </div>
 
-                <button ion-button (click)="searchStats()">Raffraichir les statistiques</button>
+            <ion-item *ngIf="categoryStats != 'mensuel'">
+              <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="date" placeholder="{{date}}"></ion-datetime>
+            </ion-item>
+
+            <button ion-button (click)="searchStats()">Raffraichir les statistiques</button>
           </div>
         </div>
 

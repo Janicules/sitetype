@@ -39,9 +39,11 @@ export class AdminPage {
 
   categoryStats: string = 'mensuel';
   month: string = "january";
+  year: number = 2018;
   today = new Date();
   date: string;
-  labels: any;
+  labels: any = [];
+  data: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider,
     private toastService: ToastProvider, private alertCtrl: AlertController) {
@@ -65,41 +67,43 @@ export class AdminPage {
     }
 
     this.date = yyyy + '-' + mm + '-' + dd;
-
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
- 
-      type: 'line',
-      data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
-          datasets: [
-              {
-                  label: "My First dataset",
-                  fill: false,
-                  lineTension: 0.1,
-                  backgroundColor: "rgba(75,192,192,0.4)",
-                  borderColor: "rgba(75,192,192,1)",
-                  borderCapStyle: 'butt',
-                  borderDash: [],
-                  borderDashOffset: 0.0,
-                  borderJoinStyle: 'miter',
-                  pointBorderColor: "rgba(75,192,192,1)",
-                  pointBackgroundColor: "#fff",
-                  pointBorderWidth: 1,
-                  pointHoverRadius: 5,
-                  pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                  pointHoverBorderColor: "rgba(220,220,220,1)",
-                  pointHoverBorderWidth: 2,
-                  pointRadius: 1,
-                  pointHitRadius: 10,
-                  data: [65, 59, 80, 81, 56, 55, 40],
-                  spanGaps: false,
-              }
-          ]
-      }
-
-  });
   }
 
+  //Update the chart
+  updateChart() {
+    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+
+      type: 'line',
+      data: {
+        labels: this.labels,
+        datasets: [
+          {
+            label: "Gain réalisé durant la période (en €)",
+            fill: false,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: this.data,
+            spanGaps: false,
+          }
+        ]
+      }
+
+    });
+  }
   //Function to get commands :
   getCommands(user?: string) {
     if (!user)
@@ -172,14 +176,14 @@ export class AdminPage {
   }
 
   insertInTable(event, command, i) {
-    if (event.value == true) 
-      this.storePhones.push({id: i, number: command.phone});
-    else {
-        const id = this.storePhones.findIndex(function(element) {
-          return element.number == command.phone;
-        });
-  
-        this.storePhones.splice(id, 1);
+    if (event.value == true)
+      this.storePhones.push({ id: i, number: command.phone });
+    else {
+      const id = this.storePhones.findIndex(function (element) {
+        return element.number == command.phone;
+      });
+
+      this.storePhones.splice(id, 1);
     }
   }
 
@@ -197,7 +201,7 @@ export class AdminPage {
         {
           text: 'Annuler',
           handler: data => {
-            this.toastService.presentToast("Annulation de l'envoie du message");            
+            this.toastService.presentToast("Annulation de l'envoie du message");
           }
         },
         {
@@ -218,7 +222,7 @@ export class AdminPage {
                     if (data == "error") {
                       this.toastService.presentToast("Une erreur est survenue lors de l'envoie du message");
                     }
-                    else if(data == "sent"){
+                    else if (data == "sent") {
                       this.toastService.presentToast("Le message a été remis avec succès");
                     }
                     else {
@@ -240,19 +244,85 @@ export class AdminPage {
     prompt.present();
   }
 
-  searchStats() {
-    if (this.categoryStats == "mensuel") {
-      for (let i = 1; i <= 31; i++)
-        this.labels.push(i);
+  searchStats() {
+    this.labels = [];
 
-      this.apiService.get('getStats.php', '?period=month&value=' + this.month)
+    if (this.categoryStats == "mensuel") {
+
+      let value: any = [this.month, this.year];
+      value = JSON.stringify(value);
+      this.apiService.get('getStats.php', '?period=month&value=' + value)
         .then(
           res => {
-            let data = res;
+            let data: any = res;
+            data = data.json();
+
+            for (let i = 1; i <= data.length; i++)
+              this.labels.push(i);
+
+            this.data = data;
+
+            if (this.lineChart)
+              this.lineChart.destroy();
+            this.updateChart();
           }
         )
+        .catch(err => console.log("erreur get stats mensuel"));
+    }
+
+    else {
+      this.apiService.get('getStats.php', '?period=' + this.categoryStats + "&value=" + this.date)
+        .then(
+          res => {
+            let data: any = res;
+            data = data.json();
+
+            if (this.categoryStats == "hebdomadaire") {
+
+              let dayReset: boolean = false;
+              let reset: number;
+              let count = 0;
+              const day = parseInt(this.date.substring(8, 10));
+              const nbDays = new Date(parseInt(this.date.substring(0, 3)), parseInt(this.date.substring(5, 7)), 0).getDate();
+
+              for (let i = day; i < day + 7; i++) {
+                if (i > nbDays && dayReset == false) {
+                  dayReset = true;
+                  reset = 0;
+                }
+
+                if (dayReset == false) {
+                  this.labels.push(day + count);
+                  count++;
+                }
+                else {
+                  reset++;
+                  this.labels.push(reset);
+                }
+              }
+
+              this.data = data;
+
+              if (this.lineChart)
+                this.lineChart.destroy();
+              this.updateChart();
+            }
+            else if (this.categoryStats == "journalier") {
+              for (let i = 0; i < 24; i++)
+                this.labels.push(i);
+
+              this.data = data;
+
+              if (this.lineChart)
+                this.lineChart.destroy();
+              this.updateChart();
+            }
+          }
+        )
+        .catch(err => console.log("erreur get stats journalier / hebdo"))
     }
   }
+
   //Redirect the user to other pages
   redirectionMonCompte() {
     this.navCtrl.setRoot(ComptePage, { choix: this.choix });
