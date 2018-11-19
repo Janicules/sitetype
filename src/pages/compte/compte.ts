@@ -32,11 +32,25 @@ export class ComptePage {
   password: string = "";
   remember: boolean = true;
 
+
+  //Variables for the commands :
+  commands: any = [];
+  totalCommands: number; 
+
+  //Variables for the payments :
+  payments: any = [];
+  totalPayments: number = 0;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastService: ToastProvider,
     private apiService: ApiServiceProvider, private appService: AppServiceProvider) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
   }
 
+  ionViewWillEnter() {
+    if (this.appService.email) {
+      this.getCommandesUser();
+    }
+  }
   //Function when the user click on the connection button
   connexion() {
     if (this.email.length < 6) {
@@ -61,7 +75,7 @@ export class ComptePage {
           if (this.remember)
             window.localStorage.setItem('email', this.email);
           else
-            if(window.localStorage.getItem('email'))
+            if (window.localStorage.getItem('email'))
               window.localStorage.removeItem('email');
 
           this.navCtrl.setRoot(HomePage);
@@ -72,6 +86,35 @@ export class ComptePage {
       .catch(error => {
         this.toastService.presentToast("Erreur réseau");
       })
+  }
+
+  //Get information about the user :
+  getCommandesUser() {
+    this.apiService.get("getCommands.php", "?user=" + this.appService.email)
+      .then(
+        response => {
+          let data;
+          data = response;
+          this.commands = data.json();
+          this.totalCommands = this.commands.length;
+        }
+      )
+      .catch(err => console.log("error when getting commands"));
+
+
+    const category = "email";
+    const value = this.appService.email;
+
+    this.apiService.get("getPayments.php", "?category=" + category + "&value=" + value)
+      .then(
+        response => {
+          let data;
+          data = response;
+          this.payments = data.json();
+          this.totalPayments = this.payments.length;
+        }
+      )
+      .catch(err => console.log("error when getting payments"));
   }
 
   //Functions to redirect the user to another pages

@@ -1,3 +1,4 @@
+import { AppServiceProvider } from './../../providers/app-service/app-service';
 import { AdminPage } from './../admin/admin';
 import { RedirectionProvider } from './../../providers/redirection/redirection';
 import { Component } from '@angular/core';
@@ -17,7 +18,7 @@ export class HomePage {
   choix: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
-    private redirectionService: RedirectionProvider, private events: Events) {
+    private redirectionService: RedirectionProvider, private events: Events, private appService: AppServiceProvider) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
     
     if (location.search != "" && !this.redirectionService.redirected) {
@@ -35,6 +36,11 @@ export class HomePage {
           return;
         }
       }
+    }
+
+    if (window.localStorage.getItem('email')) {
+      this.appService.connected = true;
+      this.appService.email = window.localStorage.getItem('email');
     }
   }
 
