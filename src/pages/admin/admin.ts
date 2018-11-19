@@ -9,6 +9,7 @@ import { ComptePage } from './../compte/compte';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { Chart } from 'chart.js';
+import { PrintProvider } from "../../providers/print/print";
 
 /**
  * Generated class for the AdminPage page.
@@ -31,10 +32,15 @@ export class AdminPage {
   displayAudio: boolean = false;
 
   choix: string;
+
+  last: any = [];
+  firstEntry: boolean = true;
+
   commands: any = [];
   totalCommands: number = 0;
   storePhones: any = [];
   oldLength: number;
+  fromFilter: boolean = false;
 
   payments: any = [];
   totalPayments: number = 0;
@@ -50,13 +56,15 @@ export class AdminPage {
   data: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider,
-    private toastService: ToastProvider, private alertCtrl: AlertController, public events: Events) {
+    private toastService: ToastProvider, private alertCtrl: AlertController, public events: Events,
+    private printService: PrintProvider) {
     this.choix = this.navParams.get('choix') ? this.navParams.get('choix') : "livraison";
   }
 
   ionViewWillEnter() {
     this.getCommands();
     this.getPayments();
+    this.getLastCommand();
 
     this.oldLength = this.totalCommands;
 
@@ -76,23 +84,27 @@ export class AdminPage {
 
     this.interval = setInterval(
       () => {
-        this.getCommands();
-        if (this.totalCommands != this.oldLength && this.oldLength > 0) {
-          this.audio = new Audio('assets/audio/circuit.mp3');
-          this.audio.play();
-          this.displayAudio = true;
-        }
+        if (this.fromFilter == false) {
+          this.getCommands();
+          if (this.totalCommands != this.oldLength && this.oldLength > 0) {
+            this.getLastCommand();
+            this.audio = new Audio('assets/audio/circuit.mp3');
+            this.audio.play();
+            this.displayAudio = true;
+          }
 
-        this.oldLength = this.totalCommands;
+          this.oldLength = this.totalCommands;
+
+        }
       }, 5000
     );
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     clearInterval(this.interval);
   }
 
-  cutSong(){
+  cutSong() {
     this.audio.pause();
     this.audio.currentTime = 0;
     this.displayAudio = false;
@@ -133,6 +145,28 @@ export class AdminPage {
 
     });
   }
+
+  //Function to get the last command :
+  getLastCommand() {
+    this.apiService.get("getLastCommand.php", '')
+      .then(
+        response => {
+          let data: any = response;
+
+          this.last = data.json();
+
+          if (this.firstEntry)
+            this.firstEntry = false;
+          else
+            this.printService.print('printIt');
+
+        }
+      )
+      .catch(
+        error => console.log("error get last command")
+      )
+  }
+
   //Function to get commands :
   getCommands(user?: string) {
     if (!user)
@@ -171,8 +205,15 @@ export class AdminPage {
 
   //Function to filter tables :
   filter(category, event) {
-    if (category == 'user')
+    if (category == 'user') {
+      this.fromFilter = true;
       this.getCommands(event.target.value);
+
+      if (event.target.value == "")
+        this.fromFilter = false;
+
+    }
+
     else if (category == 'payment') {
       if (typeof event == 'string') {
         if (this.category != "none" && event == "") {

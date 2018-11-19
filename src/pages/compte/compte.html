@@ -31,27 +31,97 @@
       </div>
     </header>
 
-    <div id="info">Connexion</div>
-    <div id="instructions">Remplissez les champs pour vous connecter</div>
-    <div class="littleUnderline"></div>
-    <div class="enregistrement">
-      <ion-list>
-        <ion-item>
-          <ion-input type="text" [(ngModel)]="email" placeholder="Votre mail ou nom d'utilisateur" style="color: black;" required></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="password" [(ngModel)]="password" placeholder="Votre mot de passe" style="color: black;" required></ion-input>
-        </ion-item>
-      </ion-list>
-      <div id="mdpoublie" style="cursor: pointer;" (click)="redirectionMdp()">Mot de passe oublié?</div>
-      <div class="checkbox">
-        <ion-checkbox color="grey" [(ngModel)]="remember" checked="true"></ion-checkbox>
-        <p>Se souvenir de moi</p>
-      </div>
+    <div *ngIf="!appService.connected">
+        <div id="info">Connexion</div>
+        <div id="instructions">Remplissez les champs pour vous connecter</div>
+        <div class="littleUnderline"></div>
+        <div class="enregistrement">
+          <ion-list>
+            <ion-item>
+              <ion-input type="text" [(ngModel)]="email" placeholder="Votre mail ou nom d'utilisateur" style="color: black;" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input type="password" [(ngModel)]="password" placeholder="Votre mot de passe" style="color: black;" required></ion-input>
+            </ion-item>
+          </ion-list>
+          <div id="mdpoublie" style="cursor: pointer;" (click)="redirectionMdp()">Mot de passe oublié?</div>
+          <div class="checkbox">
+            <ion-checkbox color="grey" [(ngModel)]="remember" checked="true"></ion-checkbox>
+            <p>Se souvenir de moi</p>
+          </div>
+        </div>
+        <button ion-button (click)="connexion()" style="background-color: #737373; margin-left: 30%; width: 40%; margin-top: 2%; height:6%; font-size: 100%">Connexion</button>
+        <div class="redirection">Vous n'avez pas de compte? Vous pouvez suivre ce <a style="cursor: pointer;" (click)="redirectionInscription()">lien</a>
+          pour créer un compte.</div>
     </div>
-    <button ion-button (click)="connexion()" style="background-color: #737373; margin-left: 30%; width: 40%; margin-top: 2%; height:6%; font-size: 100%">Connexion</button>
-    <div class="redirection">Vous n'avez pas de compte? Vous pouvez suivre ce <a style="cursor: pointer;" (click)="redirectionInscription()">lien</a>
-      pour créer un compte.</div>
+    
+    <div *ngIf="appService.connected" class="container-table">
+        <div *ngIf="commands.length > 0" class="command-table">
+            <p class="title-table">Commandes passées</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Utilisateur</th>
+                  <th>Produit</th>
+                  <th>Quantité</th>
+                  <th>Prix</th>
+                  <th>Consommation</th>
+                  <th>Ville</th>
+                  <th>Code postal</th>
+                  <th>N° de commande</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let command of commands | paginate: {id: 'command', itemsPerPage: 10, currentPage: pCommand}; let i = index;">
+                  <td>{{ command.user }}</td>
+                  <td>{{ command.product }}</td>
+                  <td>{{ command.quantity }}</td>
+                  <td>{{ command.unityPrice }}</td>
+                  <td>{{ command.choice }}</td>
+                  <td>{{ command.city }}</td>
+                  <td>{{ command.zipCode }}</td>
+                  <td>{{ command.num_command }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <pagination-controls id='command' (pageChange)="pCommand = $event"></pagination-controls>
+              <p>Total de commandes : <strong>{{ totalCommands }}</strong></p>
+            </div>
+          </div>
+    
+          <div *ngIf="payments.length > 0" class="payment-table">
+            <p class="title-table">Paiement des commandes passées</p>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Utilisateur</th>
+                  <th>Prix total</th>
+                  <th>Méthode de paiement</th>
+                  <th>Date</th>
+                  <th>N° de commande</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let payment of payments | paginate: { id: 'payment', itemsPerPage: 10, currentPage: p }">
+                  <td>{{ payment.user }}</td>
+                  <td>{{ payment.totalPrice }}</td>
+                  <td>{{ payment.paymentMethod }}</td>
+                  <td>{{ payment.date }}</td>
+                  <td>{{ payment.num_command }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="pagination">
+              <pagination-controls id="payment" (pageChange)="p = $event"></pagination-controls>
+              <p>Total de paiements : <strong>{{ totalPayments }}</strong></p>
+            </div>
+          </div>
+    
+    </div>
+
     <footer>
       <div class="baspage">
         <div class="info width-footer">

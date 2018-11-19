@@ -81,4 +81,48 @@ page-compte {
   .redirection a {
     color: darkred;
   }
+
+
+  .container-table {
+    width: 90%;
+    margin: 3vh auto 3vh auto;
+
+    .title-table {
+        height: 5vw;
+        font-size: 3vw;
+        padding-top: 1.5vw;
+        border-bottom: rgb(209,124,73) 2px solid;
+        font-family: 'GothamBold';
+        color: rgb(83,33,13);
+        margin: 0px 0px 2vh 0px;
+    }
+
+    table {
+        width: 100%;
+    }
+    
+    .command-table {
+        margin-top: 50px;
+
+        table thead th, table tbody td {
+            width: 10.5%;
+            padding: 8px;
+            border: solid 1px black;
+        }
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .payment-table {
+        margin-top: 50px;
+
+        table thead th, table tbody td {
+            padding: 8px;
+            border: solid 1px black;
+        }
+    }
+  }
 }
